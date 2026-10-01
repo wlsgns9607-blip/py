@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>웹 서비스는 어떻게 만들어질까 — 프론트엔드 · Python · DB · AI API</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="signal-progress" id="signalProgress"></div>
+
+<nav class="topnav" id="topnav">
+  <div class="topnav__brand">
+    <span class="topnav__dot"></span>
+    <span>WEB SERVICE &amp; PYTHON LAB</span>
+  </div>
+  <ul class="topnav__links">
+    <li><a href="#daily-logs" class="topnav__highlight">📅 날짜별 학습일지</a></li>
+    <li><a href="#layers">구조</a></li>
+    <li><a href="#chatbot-sim">챗봇 실습</a></li>
+    <li><a href="#apikey">API Key</a></li>
+    <li><a href="#why-python">Python이란?</a></li>
+    <li><a href="#pybasic">기본문법</a></li>
+    <li><a href="#security">보안</a></li>
+    <li><a href="#curriculum">커리큘럼</a></li>
+  </ul>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="hero__grid" aria-hidden="true"></div>
+  <div class="hero__inner">
+    <p class="eyebrow-label">FRONTEND · PYTHON BACKEND · DATABASE · AI API</p>
+    <h1 class="hero__title">
+      버튼을 눌렀을 때<br>
+      <span class="hero__title-accent">무슨 일이 일어날까요?</span>
+    </h1>
+    <p class="hero__desc">
+      웹 서비스는 문법을 외운다고 만들어지지 않습니다.<br class="br-desktop">
+      화면이 어떻게 서버와 대화하고, 서버가 왜 필요한지 그 “흐름”을 먼저 이해하면
+      코드는 훨씬 쉬워집니다.
+    </p>
+    <a class="hero__cta" href="#layers">
+      <span>흐름 직접 보기</span>
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2V14M8 14L3 9M8 14L13 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+
+  <div class="hero__diagram" id="heroDiagram">
+    <div class="hd-node" data-node="user">
+      <span class="hd-node__label">사용자</span>
+    </div>
+    <div class="hd-pipe" data-pipe="0"><span class="hd-packet"></span></div>
+    <div class="hd-node" data-node="browser">
+      <span class="hd-node__label">브라우저</span>
+      <span class="hd-node__sub">HTML·CSS·JS</span>
+    </div>
+    <div class="hd-pipe" data-pipe="1"><span class="hd-packet"></span></div>
+    <div class="hd-node hd-node--react" data-node="react">
+      <span class="hd-node__label">React</span>
+      <span class="hd-node__sub">화면 UI</span>
+    </div>
+    <div class="hd-pipe" data-pipe="2"><span class="hd-packet"></span></div>
+    <div class="hd-node hd-node--python" data-node="python">
+      <span class="hd-node__label">Python</span>
+      <span class="hd-node__sub">FastAPI 서버</span>
+    </div>
+    <div class="hd-fork">
+      <div class="hd-pipe hd-pipe--fork" data-pipe="3a"><span class="hd-packet"></span></div>
+      <div class="hd-pipe hd-pipe--fork" data-pipe="3b"><span class="hd-packet"></span></div>
+    </div>
+    <div class="hd-node-row">
+      <div class="hd-node hd-node--db" data-node="db">
+        <span class="hd-node__label">Database</span>
+      </div>
+      <div class="hd-node hd-node--ai" data-node="ai">
+        <span class="hd-node__label">AI API</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= DAILY LEARNING LOGS (날짜별 학습일지 & 필터 폼) ================= -->
+<section class="daily-logs" id="daily-logs">
+  <div class="daily-logs__inner">
+    <div class="daily-logs__header">
+      <div class="daily-logs__badge">📅 DAILY LEARNING ARCHIVE</div>
+      <h2 class="daily-logs__title">날짜별 학습일지 &amp; 실전 실습 모음</h2>
+      <p class="daily-logs__desc">
+        원하는 <strong>날짜를 선택(폼)</strong>하거나 키워드를 검색하여 날짜별 학습 내용, 실무 예제 코드, 핵심 개념 요약을 바로 확인하세요.
+      </p>
+    </div>
+
+    <!-- 날짜 선택 및 검색 폼 (Interactive Form) -->
+    <div class="daily-form-card">
+      <form class="daily-form" id="dailyFilterForm" onsubmit="event.preventDefault();">
+        <div class="daily-form__row">
+          <!-- 날짜 선택 드롭다운 Form -->
+          <div class="daily-form__group">
+            <label for="dateSelect" class="daily-form__label">
+              <span class="daily-form__icon">🗓️</span> 학습 일자 선택
+            </label>
+            <div class="daily-form__select-wrap">
+              <select id="dateSelect" class="daily-form__select" aria-label="학습 날짜 선택">
+                <option value="all">전체 날짜 한눈에 보기</option>
+                <option value="practice">🧪 [실습 모아보기] 전체 실습 코드 &amp; Lab만 모아보기</option>
+                <option value="1001" selected>10/01 (목) 📊 파이썬 판다스(Pandas) 기초 뼈대 &amp; 실무 데이터 분석 3대 패턴</option>
+                <option value="0930">09/30 (수) · 파이썬 실무 종합 총정리 (12종 실무함수 · CSS협업 · 보안금고 · 클래스)</option>
+                <option value="0929">09/29 (화) · 파이썬 기초 문법 테크 PM 번역 &amp; 비즈니스 룰 엔진</option>
+                <option value="0928_pm">⚡ [단독] 조진훈 PM 실무 해석 (삼항 연산자 &amp; 리스트 컴프리헨션)</option>
+                <option value="0928">09/28 (월) · 파이썬 기초 총정리 &amp; [현업 vs 학원] 테크 PM 데이터 분석</option>
+                <option value="0924">09/24 (수) · LLM 6대 기술 · 실무 모델 조합 · 분산 저장</option>
+                <option value="0923">09/23 (화) · PDF 요약 AI &amp; Streamlit 웹 챗봇</option>
+                <option value="0922">09/22 (월) · .env 보안 · 개발환경(venv) · GPT API</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- 키워드 검색 Form -->
+          <div class="daily-form__group daily-form__group--search">
+            <label for="dailySearch" class="daily-form__label">
+              <span class="daily-form__icon">🔍</span> 실시간 실습 &amp; 키워드 검색
+            </label>
+            <div class="daily-form__search-wrap">
+              <input type="text" id="dailySearch" class="daily-form__input" placeholder="실습 검색 (예: 12종실무함수, CSS협업, 보안금고, break_continue, CarSync...)">
+              <button type="button" id="dailySearchClear" class="daily-form__clear-btn" title="검색어 초기화">✕</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 빠른 날짜 선택 탭 폼 (Pill Buttons) -->
+        <div class="daily-form__pills">
+          <span class="daily-form__pills-label">빠른 전환:</span>
+          <button type="button" class="daily-pill" data-date="all">전체보기</button>
+          <button type="button" class="daily-pill daily-pill--practice" data-date="practice">
+            <span class="daily-pill__badge daily-pill__badge--practice">LAB</span> 🧪 실습 모아보기
+          </button>
+          <button type="button" class="daily-pill is-active" data-date="0930">
+            <span class="daily-pill__badge">NEW</span> 09/30 (수) 파이썬 실무 종합
+          </button>
+          <button type="button" class="daily-pill" data-date="0929">09/29 (화) PM 번역 &amp; 룰 엔진</button>
+          <button type="button" class="daily-pill" data-date="0928_pm">
+            <span class="daily-pill__badge">FOCUS</span> ⚡ 조진훈 PM 실무 해석
+          </button>
+          <button type="button" class="daily-pill" data-date="0928">09/28 (월) Python 기초 &amp; PM 분석</button>
+          <button type="button" class="daily-pill" data-date="0924">09/24 (수) LLM 6대기술 &amp; 분산저장</button>
+          <button type="button" class="daily-pill" data-date="0923">09/23 (화) PDF요약 &amp; 챗봇</button>
+          <button type="button" class="daily-pill" data-date="0922">09/22 (월) .env &amp; 개발환경</button>
+        </div>
+
+        <!-- 카테고리 태그 필터 폼 -->
+        <div class="daily-form__tags" id="dailyTags">
+          <span class="daily-form__tags-label">인기 태그:</span>
+          <button type="button" class="daily-tag" data-tag="all">#전체태그</button>
+          <button type="button" class="daily-tag daily-tag--practice" data-tag="실습">🧪 #실습</button>
+          <button type="button" class="daily-tag" data-tag="0930실무종합">#0930실무종합</button>
+          <button type="button" class="daily-tag" data-tag="12종실무함수">#12종실무함수</button>
+          <button type="button" class="daily-tag" data-tag="파일입출력open">#파일입출력open</button>
+          <button type="button" class="daily-tag" data-tag="CRM아키텍처">#CRM아키텍처</button>
+          <button type="button" class="daily-tag" data-tag="break_continue">#break_continue</button>
+          <button type="button" class="daily-tag" data-tag="비즈니스룰엔진">#비즈니스룰엔진</button>
+          <button type="button" class="daily-tag" data-tag="5장문제풀이">#5장문제풀이</button>
+          <button type="button" class="daily-tag" data-tag="객체지향">#객체지향</button>
+          <button type="button" class="daily-tag" data-tag="클래스상속">#클래스상속</button>
+          <button type="button" class="daily-tag" data-tag="모듈과import">#모듈과import</button>
+          <button type="button" class="daily-tag" data-tag="내장함수6종">#내장함수6종</button>
+          <button type="button" class="daily-tag" data-tag="파이썬CSS협업">#파이썬CSS협업</button>
+          <button type="button" class="daily-tag" data-tag="보안금고">#보안금고</button>
+          <button type="button" class="daily-tag" data-tag="개인정보마스킹">#개인정보마스킹</button>
+          <button type="button" class="daily-tag" data-tag="백엔드3대역할">#백엔드3대역할</button>
+          <button type="button" class="daily-tag" data-tag="데이터스키마">#데이터스키마</button>
+          <button type="button" class="daily-tag" data-tag="JSONAPI">#JSONAPI</button>
+          <button type="button" class="daily-tag" data-tag="조진훈PM해석">#조진훈PM해석</button>
+          <button type="button" class="daily-tag" data-tag="파이썬기초">#파이썬기초</button>
+          <button type="button" class="daily-tag" data-tag="테크PM분석">#테크PM분석</button>
+          <button type="button" class="daily-tag" data-tag="리스트컴프리헨션">#리스트컴프리헨션</button>
+          <button type="button" class="daily-tag" data-tag="데이터구조">#데이터구조</button>
+          <button type="button" class="daily-tag" data-tag="현장변수규격">#현장변수규격</button>
+          <button type="button" class="daily-tag" data-tag="Python문법">#Python문법</button>
+          <button type="button" class="daily-tag" data-tag="CarSync실무">#CarSync실무</button>
+          <button type="button" class="daily-tag" data-tag="PDF요약AI">#PDF요약AI</button>
+          <button type="button" class="daily-tag" data-tag="Streamlit챗봇">#Streamlit챗봇</button>
+          <button type="button" class="daily-tag" data-tag="환경변수보안">#환경변수보안</button>
+          <button type="button" class="daily-tag" data-tag="LLM핵심기술">#LLM핵심기술</button>
+          <button type="button" class="daily-tag" data-tag="분산저장">#분산저장</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- 날짜별 학습 콘텐츠 컨테이너 (JS 렌더링 및 동적 뷰어) -->
+    <div class="daily-contents" id="dailyContents">
+      <!-- 동적 렌더링 영역 -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= WHY ================= -->
+<section class="why">
+  <div class="why__inner">
+    <p class="section-kicker">01 · 이 교육의 방향</p>
+    <h2 class="why__title">
+      “Python 문법”이 아니라<br>“Python이 왜 필요한지”부터
+    </h2>
+    <div class="why__cols">
+      <div class="why__col">
+        <p class="why__num">✕</p>
+        <h3>흔한 방식</h3>
+        <p>변수, 조건문, 반복문을 순서대로 외운다.
+          문법은 익혔지만 “그래서 이걸로 뭘 만드는 거지?”라는 질문이 남는다.</p>
+      </div>
+      <div class="why__col why__col--accent">
+        <p class="why__num">✓</p>
+        <h3>이 교육의 방식</h3>
+        <p>“로그인 버튼을 누르면 서버가 무엇을 확인하는가”처럼 실제 흐름을 먼저 보여주고,
+          그 흐름을 만드는 데 필요한 문법을 그때그때 배운다.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= LAYERS (interactive stack) ================= -->
+<section class="layers" id="layers">
+  <div class="layers__inner">
+    <p class="section-kicker">02 · 역할 분리</p>
+    <h2 class="section-title">서비스는 4개의 층으로 나뉩니다</h2>
+    <p class="section-desc">
+      아래 레이어를 하나씩 눌러보세요. 각 층이 실제로 무엇을 책임지는지,
+      가계부 서비스를 예로 들어 보여드립니다.
+    </p>
+
+    <div class="stack" id="stack">
+      <button class="stack__layer" data-layer="frontend" style="--layer-accent: var(--amber);">
+        <span class="stack__index">01</span>
+        <span class="stack__name">프론트엔드<br><small>HTML · CSS · JS · React</small></span>
+        <span class="stack__arrow">＋</span>
+      </button>
+      <div class="stack__panel" data-panel="frontend">
+        <div class="stack__panel-inner">
+          <p class="stack__role">사용자가 직접 보고 만지는 모든 화면</p>
+          <ul class="stack__list">
+            <li>대시보드, 거래내역, 카드관리 같은 <b>화면 구성</b></li>
+            <li>입력창, 버튼, 표, 그래프 등 <b>UI 요소</b></li>
+            <li>클릭·입력에 반응하는 <b>사용자 인터랙션</b></li>
+          </ul>
+          <p class="stack__note">중요: 이 층은 “보여주는 일”만 합니다. 데이터를 안전하게 지키는 일은 다음 층의 몫입니다.</p>
+        </div>
+      </div>
+
+      <button class="stack__layer" data-layer="python" style="--layer-accent: var(--teal);">
+        <span class="stack__index">02</span>
+        <span class="stack__name">Python 백엔드<br><small>FastAPI 서버</small></span>
+        <span class="stack__arrow">＋</span>
+      </button>
+      <div class="stack__panel" data-panel="python">
+        <div class="stack__panel-inner">
+          <p class="stack__role">화면 뒤에서 “판단하고 처리하는” 서버</p>
+          <ul class="stack__list">
+            <li>로그인 시 <b>사용자 인증 / 권한 확인</b></li>
+            <li>요청이 들어오면 <b>DB에서 데이터 조회·저장</b></li>
+            <li>네이버·카카오·날씨·AI 같은 <b>외부 API 호출</b></li>
+            <li>브라우저에 노출되면 안 되는 <b>API Key 보호</b></li>
+          </ul>
+          <p class="stack__note">Python은 화면을 그리는 언어가 아니라, 서버에서 “처리”를 담당하는 언어입니다.</p>
+        </div>
+      </div>
+
+      <button class="stack__layer" data-layer="db" style="--layer-accent: var(--violet);">
+        <span class="stack__index">03</span>
+        <span class="stack__name">Database<br><small>데이터 저장소</small></span>
+        <span class="stack__arrow">＋</span>
+      </button>
+      <div class="stack__panel" data-panel="db">
+        <div class="stack__panel-inner">
+          <p class="stack__role">서비스의 모든 기록이 남는 곳</p>
+          <ul class="stack__list">
+            <li>가계부라면 <b>계좌 · 카드 · 거래내역 · 카테고리</b></li>
+            <li>챗봇이라면 <b>대화방 · 메시지 · 사용 기록</b></li>
+            <li>사용자 A는 사용자 B의 데이터를 볼 수 없도록 <b>권한 분리</b></li>
+          </ul>
+          <p class="stack__note">React나 브라우저가 DB에 직접 접속하는 일은 없습니다. 항상 Python을 거칩니다.</p>
+        </div>
+      </div>
+
+      <button class="stack__layer" data-layer="ai" style="--layer-accent: var(--ink);">
+        <span class="stack__index">04</span>
+        <span class="stack__name">AI API<br><small>OpenAI · Gemini 등</small></span>
+        <span class="stack__arrow">＋</span>
+      </button>
+      <div class="stack__panel" data-panel="ai">
+        <div class="stack__panel-inner">
+          <p class="stack__role">서비스에 “지능”을 더하는 외부 엔진</p>
+          <ul class="stack__list">
+            <li>사용자의 질문을 <b>프롬프트로 정리해 전달</b></li>
+            <li>AI의 응답을 <b>가공해서 화면에 표시</b></li>
+            <li>대화 기록·사용량을 <b>Python이 관리</b></li>
+          </ul>
+          <p class="stack__note">AI API도 결국 “외부 API”의 한 종류입니다. 원리는 날씨 API, 지도 API와 같습니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHATBOT SIMULATION ================= -->
+<section class="sim" id="chatbot-sim">
+  <div class="sim__inner">
+    <p class="section-kicker section-kicker--light">03 · 직접 실행해보기</p>
+    <h2 class="section-title section-title--light">AI 챗봇 한 번의 질문, 그 뒤에서 벌어지는 일</h2>
+    <p class="section-desc section-desc--light">
+      아래 채팅창에 메시지를 보내면, 그 요청이 실제로 어떤 순서로
+      서버와 DB, AI API를 거쳐 돌아오는지 단계별로 보여드립니다.
+    </p>
+
+    <div class="sim__layout">
+      <div class="sim__chat">
+        <div class="sim__chat-head">
+          <span class="sim__chat-dot"></span> AI 가계부 상담
+        </div>
+        <div class="sim__chat-body" id="simChatBody">
+          <div class="sim__bubble sim__bubble--ai">안녕하세요! 이번 달 지출이 궁금하신가요?</div>
+        </div>
+        <div class="sim__chat-input">
+          <input type="text" id="simInput" placeholder="예: 이번 달에 식비를 얼마나 썼어?" maxlength="40">
+          <button id="simSend">전송</button>
+        </div>
+        <div class="sim__presets">
+          <button class="sim__preset" data-q="이번 달 식비 얼마 썼어?">이번 달 식비 얼마 썼어?</button>
+          <button class="sim__preset" data-q="지난주 카드값 알려줘">지난주 카드값 알려줘</button>
+        </div>
+      </div>
+
+      <div class="sim__flow">
+        <ol class="sim__steps" id="simSteps">
+          <li data-step="0"><span class="sim__step-num">1</span><span class="sim__step-text">React가 메시지를 <code>POST /chat</code>으로 전송</span></li>
+          <li data-step="1"><span class="sim__step-num">2</span><span class="sim__step-text">FastAPI가 요청을 받아 <b>사용자 인증</b>을 확인</span></li>
+          <li data-step="2"><span class="sim__step-num">3</span><span class="sim__step-text">Python이 <b>Database</b>에서 이번 달 거래내역 조회</span></li>
+          <li data-step="3"><span class="sim__step-num">4</span><span class="sim__step-text">조회한 데이터를 프롬프트로 정리해 <b>AI API 호출</b></span></li>
+          <li data-step="4"><span class="sim__step-num">5</span><span class="sim__step-text">AI 응답을 Python이 가공해 <b>React로 반환</b></span></li>
+          <li data-step="5"><span class="sim__step-num">6</span><span class="sim__step-text">화면에 답변 표시</span></li>
+        </ol>
+        <div class="sim__hint" id="simHint">메시지를 보내면 여기에서 흐름이 재생됩니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= API KEY ================= -->
+<section class="apikey" id="apikey">
+  <div class="apikey__inner">
+    <p class="section-kicker">04 · 보안의 기본</p>
+    <h2 class="section-title">API Key는 왜 항상 서버에 있어야 할까요</h2>
+    <p class="section-desc">두 구조를 눌러 비교해보세요. 차이는 “Key가 브라우저에 노출되는가”입니다.</p>
+
+    <div class="apikey__toggle">
+      <button class="apikey__tab is-active" data-mode="wrong">잘못된 구조</button>
+      <button class="apikey__tab" data-mode="right">올바른 구조</button>
+    </div>
+
+    <div class="apikey__stage">
+      <div class="apikey__diagram" id="apikeyDiagram" data-mode="wrong">
+        <!-- filled by JS -->
+      </div>
+      <p class="apikey__explain" id="apikeyExplain"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CURRICULUM ================= -->
+<section class="curriculum" id="curriculum">
+  <div class="curriculum__inner">
+    <p class="section-kicker">05 · 학습 순서</p>
+    <h2 class="section-title">10단계 커리큘럼</h2>
+    <p class="section-desc">각 단계를 눌러 무엇을 배우는지 확인하세요. 순서는 실제 서비스가 만들어지는 순서와 같습니다.</p>
+
+    <div class="timeline" id="timeline">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= ROLE TABLE ================= -->
+<section class="roles">
+  <div class="roles__inner">
+    <p class="section-kicker">06 · 기술별 역할</p>
+    <h2 class="section-title">한 문장으로 정리하면</h2>
+    <div class="roles__grid" id="rolesGrid">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= SUMMARY ================= -->
+<section class="summary" id="summary">
+  <div class="summary__inner">
+    <p class="section-kicker section-kicker--light">07 · 핵심 목표</p>
+    <h2 class="summary__title">
+      기술을 따로 배우는 것이 아니라,<br>
+      <span class="summary__accent">서비스 하나를 처음부터 끝까지</span><br>
+      만들 수 있는 능력을 갖추는 것
+    </h2>
+    <div class="summary__cards">
+      <div class="summary__card"><h3>프론트엔드</h3><p>사용자가 보고 사용하는 화면을 만든다</p></div>
+      <div class="summary__card"><h3>백엔드</h3><p>인증, 데이터 처리, DB·외부 API 연동을 담당한다</p></div>
+      <div class="summary__card"><h3>보안</h3><p>개인정보와 인증정보를 적절히 보호한다</p></div>
+      <div class="summary__card"><h3>AI</h3><p>AI API를 실제 기능으로 서비스에 연결한다</p></div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ================= WHY PYTHON ================= -->
+<section class="why-python" id="why-python">
+  <div class="why-python__inner">
+    <p class="section-kicker">💡 Python을 왜 배우는가?</p>
+    <h2 class="section-title">웹 개발, 전체 구조부터 이해하자</h2>
+    <p class="section-desc">
+      Python 문법 전에, 먼저 <strong>웹 서비스가 어떻게 작동하는지</strong> 큰 그림을 보겠습니다.
+    </p>
+
+    <!-- 전체 구조 다이어그램 -->
+    <div class="why-stack">
+      <div class="why-stack__item why-stack__item--frontend">
+        <div class="why-stack__badge">👁️ 사용자가 보는 곳</div>
+        <div class="why-stack__layer">
+          <span class="why-stack__label">Frontend</span>
+          <div class="why-stack__techs">
+            <span class="why-tech why-tech--html">HTML</span>
+            <span class="why-tech why-tech--css">CSS</span>
+            <span class="why-tech why-tech--js">JavaScript</span>
+            <span class="why-tech why-tech--react">React</span>
+          </div>
+        </div>
+      </div>
+      <div class="why-stack__arrow">⬇️ 요청 / 응답</div>
+      <div class="why-stack__item why-stack__item--backend">
+        <div class="why-stack__badge">⚙️ 서버에서 처리하는 곳</div>
+        <div class="why-stack__layer">
+          <span class="why-stack__label">Backend</span>
+          <div class="why-stack__techs">
+            <span class="why-tech why-tech--python">Python</span>
+            <span class="why-tech why-tech--fastapi">FastAPI</span>
+          </div>
+        </div>
+      </div>
+      <div class="why-stack__arrow">⬇️ 저장 / 조회</div>
+      <div class="why-stack__item why-stack__item--db">
+        <div class="why-stack__badge">🗄️ 데이터를 보관하는 곳</div>
+        <div class="why-stack__layer">
+          <span class="why-stack__label">Database</span>
+          <div class="why-stack__techs">
+            <span class="why-tech why-tech--db">MySQL</span>
+            <span class="why-tech why-tech--db">PostgreSQL</span>
+          </div>
+        </div>
+      </div>
+      <div class="why-stack__arrow">⬇️ 연결</div>
+      <div class="why-stack__item why-stack__item--api">
+        <div class="why-stack__badge">🔌 외부 서비스 연결</div>
+        <div class="why-stack__layer">
+          <span class="why-stack__label">외부 API / AI API</span>
+          <div class="why-stack__techs">
+            <span class="why-tech why-tech--naver">네이버</span>
+            <span class="why-tech why-tech--kakao">카카오</span>
+            <span class="why-tech why-tech--ai">ChatGPT</span>
+            <span class="why-tech why-tech--ai">Gemini</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 각 계층 쉽게 설명 -->
+    <div class="why-roles">
+      <div class="why-role" id="whyRoleHTML">
+        <div class="why-role__icon">🖼️</div>
+        <div class="why-role__body">
+          <h3>HTML / CSS</h3>
+          <p class="why-role__analogy">🏪 <strong>매장 인테리어</strong>와 같습니다.</p>
+          <p class="why-role__real">화면의 구조(HTML)와 색상·배치·폰트(CSS)를 담당합니다. 사용자가 직접 눈으로 보는 부분입니다.</p>
+        </div>
+      </div>
+      <div class="why-role" id="whyRoleJS">
+        <div class="why-role__icon">⚡</div>
+        <div class="why-role__body">
+          <h3>JavaScript</h3>
+          <p class="why-role__analogy">🔔 <strong>매장 직원의 행동</strong>과 같습니다.</p>
+          <p class="why-role__real">버튼 클릭, 팝업, 슬라이드 등 화면에서 일어나는 모든 동작을 처리합니다.</p>
+        </div>
+      </div>
+      <div class="why-role" id="whyRoleReact">
+        <div class="why-role__icon">⚛️</div>
+        <div class="why-role__body">
+          <h3>React</h3>
+          <p class="why-role__analogy">📐 <strong>효율적인 매장 설계 도구</strong>와 같습니다.</p>
+          <p class="why-role__real">복잡한 화면을 컴포넌트 단위로 나눠 효율적으로 관리하는 JavaScript 라이브러리입니다.</p>
+        </div>
+      </div>
+      <div class="why-role why-role--highlight" id="whyRolePython">
+        <div class="why-role__icon">🐍</div>
+        <div class="why-role__body">
+          <h3>Python (Backend)</h3>
+          <p class="why-role__analogy">🏭 <strong>보이지 않는 공장</strong>과 같습니다.</p>
+          <p class="why-role__real">
+            Python은 <strong>서버에서 중요한 일을 처리</strong>하는 언어입니다.<br>
+            로그인 확인, 데이터 저장/조회, 외부 API 연동, AI API 호출,<br>
+            그리고 API Key 같은 비밀 정보를 안전하게 보관합니다.
+          </p>
+          <div class="why-role__note">
+            💡 Python은 "보안 전용 언어"가 아닙니다. <strong>백엔드 서버를 만드는 언어</strong>이며,
+            그 과정에서 인증·인가·입력 검증·비밀키 관리 등의 기능을 구현합니다.
+          </div>
+        </div>
+      </div>
+      <div class="why-role" id="whyRoleDB">
+        <div class="why-role__icon">🗄️</div>
+        <div class="why-role__body">
+          <h3>Database</h3>
+          <p class="why-role__analogy">📦 <strong>창고</strong>와 같습니다.</p>
+          <p class="why-role__real">사용자 계정, 게시글, 주문 내역 등 서비스에 필요한 데이터를 저장하고 꺼내 씁니다. React는 DB에 직접 접근하지 않고 항상 Python을 통해 접근합니다.</p>
+        </div>
+      </div>
+      <div class="why-role" id="whyRoleAPI">
+        <div class="why-role__icon">🔌</div>
+        <div class="why-role__body">
+          <h3>외부 API / AI API</h3>
+          <p class="why-role__analogy">☎️ <strong>다른 업체와 연결되는 전화</strong>와 같습니다.</p>
+          <p class="why-role__real">네이버·카카오 로그인, ChatGPT 챗봇 등 다른 회사의 기능을 우리 서비스에 연결할 때 사용합니다. API Key는 이 전화를 쓸 수 있는 <strong>비밀번호</strong>입니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ================= PYTHON 기초 ================= -->
+<section class="pybasic" id="pybasic">
+  <div class="pybasic__inner">
+    <p class="section-kicker">📘 Python 기초</p>
+    <h2 class="section-title">Python, 이렇게 시작합니다</h2>
+    <p class="section-desc">프로그래밍 경험이 없어도 괜찮습니다. 가장 기본부터 차근차근 배워봅시다.</p>
+
+    <div class="pybasic__grid">
+      <!-- 변수 -->
+      <div class="pybasic__card">
+        <div class="pybasic__card-header">
+          <span class="pybasic__icon">📦</span>
+          <h3>변수 Variable</h3>
+        </div>
+        <p class="pybasic__analogy">📦 비유: 변수는 <strong>데이터를 담아두는 상자</strong>입니다.</p>
+        <pre class="code-block"><code>name = "홍길동"
+age = 31
+print(name)  # 홍길동 출력</code></pre>
+        <p class="pybasic__desc">이름표를 붙인 상자에 값을 담아 두고, 나중에 꺼내 쓸 수 있습니다.</p>
+      </div>
+
+      <!-- 조건문 -->
+      <div class="pybasic__card">
+        <div class="pybasic__card-header">
+          <span class="pybasic__icon">🔀</span>
+          <h3>조건문 if</h3>
+        </div>
+        <p class="pybasic__analogy">🔀 비유: <strong>조건에 따라 다른 행동</strong>을 합니다.</p>
+        <pre class="code-block"><code>age = 31
+
+if age >= 20:
+    print("성인입니다.")
+else:
+    print("미성년자입니다.")</code></pre>
+        <p class="pybasic__desc">서버에서 사용자의 나이·권한에 따라 다른 응답을 내려줄 때 사용합니다.</p>
+      </div>
+
+      <!-- 함수 -->
+      <div class="pybasic__card">
+        <div class="pybasic__card-header">
+          <span class="pybasic__icon">⚙️</span>
+          <h3>함수 Function</h3>
+        </div>
+        <p class="pybasic__analogy">⚙️ 비유: 자주 쓰는 작업을 <strong>하나의 기능으로 묶어</strong> 재사용합니다.</p>
+        <pre class="code-block"><code>def hello(name):
+    return f"{name}님 환영합니다."
+
+print(hello("홍길동"))
+# → 홍길동님 환영합니다.</code></pre>
+        <p class="pybasic__desc">로그인 처리, 데이터 검증 등 반복 로직을 함수로 만들어 재사용합니다.</p>
+      </div>
+
+      <!-- Dictionary -->
+      <div class="pybasic__card">
+        <div class="pybasic__card-header">
+          <span class="pybasic__icon">📋</span>
+          <h3>딕셔너리 Dictionary</h3>
+        </div>
+        <p class="pybasic__analogy">📋 비유: 이름과 값을 <strong>쌍으로 관리하는 명단</strong>입니다.</p>
+        <pre class="code-block"><code>user = {
+    "name": "홍길동",
+    "age": 31
+}
+
+print(user["name"])  # 홍길동</code></pre>
+        <p class="pybasic__desc">API 응답 데이터나 사용자 정보를 담을 때 가장 많이 쓰는 자료형입니다.</p>
+      </div>
+
+      <!-- Request / Response -->
+      <div class="pybasic__card pybasic__card--wide">
+        <div class="pybasic__card-header">
+          <span class="pybasic__icon">🔄</span>
+          <h3>Request &amp; Response</h3>
+        </div>
+        <p class="pybasic__analogy">🔄 비유: 사용자가 <strong>주문(Request)</strong>하면, 서버가 <strong>음식(Response)</strong>을 내어줍니다.</p>
+        <div class="req-res-flow">
+          <div class="req-res__step req-res__step--user">👤 사용자</div>
+          <div class="req-res__arrow">▼ Request (요청)</div>
+          <div class="req-res__step req-res__step--python">🐍 Python 서버</div>
+          <div class="req-res__arrow">▼ 처리</div>
+          <div class="req-res__step req-res__step--db">🗄️ DB / API</div>
+          <div class="req-res__arrow">▲ Response (응답)</div>
+          <div class="req-res__step req-res__step--user">👤 사용자</div>
+        </div>
+        <pre class="code-block"><code># Python FastAPI 예시
+@app.post("/login")
+def login(user: UserData):
+    # 처리 후 응답 반환
+    return {
+        "message": "로그인 성공",
+        "user": "홍길동"
+    }</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FASTAPI 보안 ================= -->
+<section class="security" id="security">
+  <div class="security__inner">
+    <p class="section-kicker">🔐 Python 백엔드 보안 기초</p>
+    <h2 class="section-title">서버에서 이것만큼은 꼭 확인하세요</h2>
+    <p class="section-desc">FastAPI를 사용한 교육용 코드 예제로 핵심 보안 개념을 배웁니다.</p>
+
+    <div class="security__code-wrap">
+      <div class="code-block-label">🐍 Python + FastAPI 예시 코드</div>
+      <pre class="code-block code-block--security"><code>import os
+from fastapi import FastAPI, Header, HTTPException
+
+app = FastAPI()
+
+# ✅ 환경변수에서 API Key를 불러옵니다 (코드에 직접 쓰지 않습니다)
+AI_API_KEY = os.getenv("AI_API_KEY")
+
+@app.post("/chat")
+def chat(message: str, authorization: str = Header(None)):
+
+    # 1️⃣ 인증: 로그인한 사용자인지 확인
+    if not authorization:
+        raise HTTPException(
+            status_code=401,
+            detail="로그인이 필요합니다."
+        )
+
+    # 2️⃣ 입력값 검증: 너무 긴 메시지 차단
+    if len(message) > 500:
+        raise HTTPException(
+            status_code=400,
+            detail="메시지가 너무 깁니다."
+        )
+
+    # 3️⃣ 비밀정보 확인: API Key가 설정되어 있는지 점검
+    if not AI_API_KEY:
+        raise HTTPException(
+            status_code=500,
+            detail="API Key가 설정되지 않았습니다."
+        )
+
+    return {
+        "message": "AI API 요청을 서버에서 처리합니다."
+    }</code></pre>
+    </div>
+
+    <div class="security__concepts">
+      <div class="security__concept">
+        <span class="security__num">1️⃣</span>
+        <div>
+          <h3>인증 (Authentication)</h3>
+          <p>이 사용자가 <strong>로그인한 사용자</strong>인가?</p>
+        </div>
+      </div>
+      <div class="security__concept">
+        <span class="security__num">2️⃣</span>
+        <div>
+          <h3>인가 (Authorization)</h3>
+          <p>로그인한 사용자가 이 기능을 <strong>사용할 권한</strong>이 있는가?</p>
+        </div>
+      </div>
+      <div class="security__concept">
+        <span class="security__num">3️⃣</span>
+        <div>
+          <h3>입력값 검증 (Validation)</h3>
+          <p>사용자가 <strong>이상하거나 너무 큰 데이터</strong>를 보내지는 않았는가?</p>
+        </div>
+      </div>
+      <div class="security__concept">
+        <span class="security__num">4️⃣</span>
+        <div>
+          <h3>비밀정보 관리 (Secret Management)</h3>
+          <p>API Key 같은 중요한 정보를 <strong>코드나 브라우저에 공개</strong>하지 않았는가?</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 네이버/카카오 OAuth ================= -->
+<section class="oauth" id="oauth">
+  <div class="oauth__inner">
+    <p class="section-kicker">🔑 소셜 로그인</p>
+    <h2 class="section-title">네이버·카카오 로그인은 어떻게 작동할까?</h2>
+    <p class="section-desc">
+      🏪 비유: 네이버/카카오는 <strong>신분증 발급 기관</strong>, Python 서버는 <strong>신분증을 확인하는 직원</strong>입니다.
+    </p>
+
+    <div class="oauth__flow-wrap">
+      <div class="oauth__flow" id="oauthFlow">
+        <div class="oauth__step" data-step="oauth-0">
+          <span class="oauth__icon">👤</span>
+          <span class="oauth__label">사용자</span>
+          <span class="oauth__sub">로그인 버튼 클릭</span>
+        </div>
+        <div class="oauth__arrow">▼</div>
+        <div class="oauth__step" data-step="oauth-1">
+          <span class="oauth__icon">🟢</span>
+          <span class="oauth__label">네이버 / 카카오</span>
+          <span class="oauth__sub">소셜 인증 페이지</span>
+        </div>
+        <div class="oauth__arrow">▼</div>
+        <div class="oauth__step" data-step="oauth-2">
+          <span class="oauth__icon">✅</span>
+          <span class="oauth__label">인증 완료</span>
+          <span class="oauth__sub">Authorization Code 발급</span>
+        </div>
+        <div class="oauth__arrow">▼</div>
+        <div class="oauth__step" data-step="oauth-3">
+          <span class="oauth__icon">🐍</span>
+          <span class="oauth__label">Python Backend</span>
+          <span class="oauth__sub">코드로 토큰 교환 → 사용자 정보 확인</span>
+        </div>
+        <div class="oauth__arrow">▼</div>
+        <div class="oauth__step" data-step="oauth-4">
+          <span class="oauth__icon">🗄️</span>
+          <span class="oauth__label">Database</span>
+          <span class="oauth__sub">사용자 정보 저장/조회</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="oauth__env">
+      <div class="code-block-label">📄 .env 파일 예시 (교육용 가짜 값)</div>
+      <pre class="code-block"><code># ⚠️ 아래 값은 교육용 가짜 키입니다. 실제 키를 여기에 쓰지 마세요!
+NAVER_CLIENT_ID=EDU_NAVER_CLIENT_ID
+NAVER_CLIENT_SECRET=EDU_NAVER_CLIENT_SECRET
+
+KAKAO_CLIENT_ID=EDU_KAKAO_CLIENT_ID
+KAKAO_CLIENT_SECRET=EDU_KAKAO_CLIENT_SECRET</code></pre>
+      <div class="apikey__warning">
+        ⚠️ 위 키는 교육용 가짜 키입니다. 실제 Client ID/Secret을 HTML, JavaScript, GitHub에 공개하지 마세요.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 하면 안 되는 것 ================= -->
+<section class="donts" id="donts">
+  <div class="donts__inner">
+    <p class="section-kicker">⚠️ 절대 하면 안 되는 것</p>
+    <h2 class="section-title">이것만큼은 절대 하지 마세요</h2>
+
+    <div class="donts__grid">
+      <div class="donts__card donts__card--bad">
+        <h3>❌ 하면 안 되는 것</h3>
+        <ul>
+          <li>React / JavaScript 코드에 실제 API Key 작성</li>
+          <li>GitHub에 <code>.env</code> 파일 업로드</li>
+          <li>사용자 비밀번호를 평문으로 DB에 저장</li>
+          <li>아무 사용자나 다른 사용자의 데이터를 조회할 수 있게 만들기</li>
+          <li>서버에서 API Key를 사용자에게 그대로 반환</li>
+        </ul>
+      </div>
+      <div class="donts__card donts__card--good">
+        <h3>✅ 올바른 방법</h3>
+        <ul>
+          <li>환경변수(<code>.env</code>) 사용</li>
+          <li>Secret Manager 사용</li>
+          <li>서버에서 인증 처리</li>
+          <li>사용자 권한 확인 후 데이터 제공</li>
+          <li>입력값 길이·형식 검증</li>
+          <li>필요한 데이터만 선택하여 반환</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 학습 로드맵 ================= -->
+<section class="roadmap-edu" id="roadmap-edu">
+  <div class="roadmap-edu__inner">
+    <p class="section-kicker">🗺️ 학습 로드맵</p>
+    <h2 class="section-title">앞으로 이렇게 공부하세요</h2>
+    <p class="section-desc">클릭하면 각 단계의 설명을 볼 수 있습니다.</p>
+
+    <div class="roadmap-edu__steps" id="roadmapSteps">
+      <!-- JS로 채워집니다 -->
+    </div>
+  </div>
+</section>
+
+<!-- ================= 핵심 메시지 ================= -->
+<section class="keymsg" id="keymsg">
+  <div class="keymsg__inner">
+    <p class="section-kicker section-kicker--light">🎯 가장 중요한 메시지</p>
+    <h2 class="keymsg__title">
+      React는 사용자가 보는 것을 만들고,<br>
+      <span class="keymsg__accent">Python은 서버에서 중요한 일을 처리합니다.</span>
+    </h2>
+    <div class="keymsg__clarify">
+      <p><strong>Python은 보안 전용 언어가 아닙니다.</strong></p>
+      <p>
+        Python은 <strong>백엔드 서버</strong>를 만드는 데 사용할 수 있으며,<br>
+        <strong>인증, 데이터 처리, DB 연결, 외부 API 연동, AI API 연동</strong> 등의
+        기능을 서버에서 구현할 수 있습니다.
+      </p>
+    </div>
+  </div>
+</section>
+<footer class="footer">
+  <p>웹 서비스 개발 교육과정 · 프론트엔드 · Python 백엔드 · DB · AI API</p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
