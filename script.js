@@ -586,6 +586,42 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
       subtitle: '모듈(Module)과 import, 필수 내장함수, time/os 표준모듈, 문자열 조작, 클래스/객체/상속, 연락처 관리 실전 프로젝트, 파일 입출력까지 비전공자 맞춤 마스터',
       tags: ['1002실무', '모듈', 'import', '내장함수', '표준모듈_time_os', '클래스_객체_self', '상속', '연락처프로젝트', '파일입출력_with_open', 'if_name_main', 'plot_savefig', 'ML_DL시각화', 'R시각화', 'barplot', 'hist_pie', 'igraph_treemap', '실습'],
       sections: [
+
+        {
+          secTitle: '🚀 데이터 프로젝트 성공을 위한 3단계 로드맵',
+          secDesc: '프로젝트는 [목표 정하기(계획) ➔ 알고리즘 짜고 코딩하기(구현) ➔ 그래프 보고 의미 찾기(분석)] 흐름으로 완성됩니다.',
+          content: `
+            <div class="dl-card" style="border: 2px solid #6366f1; border-radius: 12px; padding: 20px; background: rgba(99, 102, 241, 0.04);">
+              <h4 style="color: #4f46e5; margin-bottom: 16px; font-size: 1.15rem;">📌 데이터 프로젝트 3단계 로드맵 상세 가이드</h4>
+              
+              <div style="display: grid; gap: 16px; margin-bottom: 18px;">
+                <div style="background: #ffffff; padding: 16px; border-radius: 10px; border-left: 5px solid #3b82f6; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                  <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">🎯 1단계: 프로젝트 목표 수립 (목적지와 지도 정하기)</div>
+                  <p style="margin: 0 0 6px; color: #475569; font-size: 0.93rem;"><b>무엇을 하는 단계인가요?</b> 프로젝트를 통해 정확히 무엇을 알아낼 것인지 목적지를 확실하게 정하는 단계입니다.</p>
+                  <p style="margin: 0; color: #64748b; font-size: 0.88rem;"><b>핵심 내용:</b> "10~12월 카드 내역을 분석해 불필요한 지출을 잡겠다" 같은 명확한 목표를 세우고, 그 목표에 맞는 데이터(예: 3개월치 카드 이용내역 파일)를 선정하고 가져옵니다.</p>
+                </div>
+
+                <div style="background: #ffffff; padding: 16px; border-radius: 10px; border-left: 5px solid #10b981; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                  <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">🛠️ 2단계: 프로그램 구현 (설계도 짜고 코드 만들기)</div>
+                  <p style="margin: 0 0 6px; color: #475569; font-size: 0.93rem;"><b>무엇을 하는 단계인가요?</b> 세운 목표를 실제 컴퓨터가 알아듣는 코드로 구현하는 단계입니다.</p>
+                  <p style="margin: 0; color: #64748b; font-size: 0.88rem;"><b>핵심 내용:</b><br>
+                  • <b>알고리즘 작성:</b> 무작정 코딩부터 하면 막막하므로, 문제를 해결할 절차를 한국어 순서도(알고리즘)로 먼저 정리합니다.<br>
+                  • <b>코드 작성:</b> 정리된 알고리즘을 그대로 파이썬 코드로 옮겨서 그래프(막대, 꺾은선 등)를 그려냅니다.</p>
+                </div>
+
+                <div style="background: #ffffff; padding: 16px; border-radius: 10px; border-left: 5px solid #f59e0b; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+                  <div style="font-weight: 700; color: #1e293b; font-size: 1.05rem; margin-bottom: 6px;">💡 3단계: 결과 분석 (인사이트 도출하기)</div>
+                  <p style="margin: 0 0 6px; color: #475569; font-size: 0.93rem;"><b>무엇을 하는 단계인가요?</b> 컴퓨터가 뽑아준 그래프와 결과를 보며 의미 있는 결론을 내는 마무리 단계입니다.</p>
+                  <p style="margin: 0; color: #64748b; font-size: 0.88rem;"><b>핵심 내용:</b> 그래프를 분석해 "11월달에 왜 지출이 두 배나 많았을까?", "택시보다 배달음식에 돈을 더 많이 썼네?" 같은 실질적인 원인과 소비 패턴을 유추해 냅니다.</p>
+                </div>
+              </div>
+
+              <div style="background: #e0e7ff; padding: 12px 16px; border-radius: 8px; font-weight: 700; color: #3730a3; font-size: 0.95rem; text-align: center;">
+                ✨ 한 줄 요약: 프로젝트는 [목표 정하기(계획) ➔ 알고리즘 짜고 코딩하기(구현) ➔ 그래프 보고 의미 찾기(분석)]
+              </div>
+            </div>
+          `
+        },
         {
           secTitle: '🧩 1. 모듈(Module)이란? & import 사용법',
           icon: '🧩',
