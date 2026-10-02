@@ -579,9 +579,313 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
   // 전체 날짜별 학습 데이터 (10/02, 10/01, 09/30, 09/29, 09/28_pm, 09/28, 09/24, 09/23, 09/22)
   const logsData = [
     {
+      id: '1004',
+      date: '10/04 (일)',
+      badge: 'LATEST',
+      title: '🧠 룰 기반 vs 머신러닝 vs 딥러닝 완벽 비교 & 테크 PM 필수 AI 파이프라인 가이드',
+      subtitle: '지도학습/비지도학습 분류·회귀·군집, ML 핵심 5대 용어, 딥러닝 활성화함수, SQL+Python+JSON 3대 결합 파이프라인, SLM 온디바이스 & 파인튜닝 실무 전략',
+      tags: ['1004실무', '머신러닝', '딥러닝', '지도학습', '비지도학습', '과적합_Overfitting', '활성화함수', 'SQL_Python_JSON', '파이프라인', 'SLM', '파인튜닝', 'PM아키텍처', '실습'],
+      sections: [
+        {
+          secTitle: '⚡ 1. 한 줄 개념 비교: 룰 기반 vs 머신러닝 vs 딥러닝',
+          secDesc: '규칙을 사람이 직접 작성하는가, 데이터에서 기계가 스스로 찾는가, 뇌신경망으로 비정형 데이터를 정복하는가의 핵심 차이',
+          content: `
+            <div class="dl-card" style="border-radius: 12px; padding: 22px; background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+                
+                <div style="background: #f8fafc; border-top: 4px solid #64748b; padding: 18px; border-radius: 8px;">
+                  <span style="display: inline-block; padding: 3px 8px; background: #e2e8f0; color: #475569; font-weight: 700; font-size: 0.8rem; border-radius: 4px; margin-bottom: 8px;">전통적 코딩</span>
+                  <h4 style="margin: 0 0 10px; color: #1e293b; font-size: 1.1rem;">룰 기반 (Rule-based)</h4>
+                  <p style="font-size: 0.92rem; color: #334155; margin-bottom: 8px;"><b>"사람이 규칙을 일일이 짬"</b></p>
+                  <p style="font-size: 0.88rem; color: #64748b; margin: 0; line-height: 1.6;">
+                    개발자/기획자가 직접 <code>if-else</code> 조건문을 작성합니다.<br>
+                    <i>예: "예약 후 15일 이상 지났고 10대 환자면 노쇼로 분류해라."</i>
+                  </p>
+                </div>
+
+                <div style="background: #eff6ff; border-top: 4px solid #3b82f6; padding: 18px; border-radius: 8px;">
+                  <span style="display: inline-block; padding: 3px 8px; background: #dbeafe; color: #1d4ed8; font-weight: 700; font-size: 0.8rem; border-radius: 4px; margin-bottom: 8px;">기계학습 (정형 데이터)</span>
+                  <h4 style="margin: 0 0 10px; color: #1e293b; font-size: 1.1rem;">머신러닝 (ML)</h4>
+                  <p style="font-size: 0.92rem; color: #1d4ed8; margin-bottom: 8px;"><b>"데이터(CSV/표)를 주면 컴퓨터가 규칙(패턴)을 찾아냄"</b></p>
+                  <p style="font-size: 0.88rem; color: #475569; margin: 0; line-height: 1.6;">
+                    환자 11만 명의 나이, 예약 간격, 문자 수신 여부(<code>X</code>)와 노쇼 여부(<code>Y</code>)를 던져주면 가중치를 스스로 계산하여 <i>"예약 간격 15일 초과 시 노쇼 확률 32% 상승"</i> 패턴을 학습합니다.
+                  </p>
+                </div>
+
+                <div style="background: #faf5ff; border-top: 4px solid #8b5cf6; padding: 18px; border-radius: 8px;">
+                  <span style="display: inline-block; padding: 3px 8px; background: #f3e8ff; color: #6d28d9; font-weight: 700; font-size: 0.8rem; border-radius: 4px; margin-bottom: 8px;">심층학습 (비정형 데이터)</span>
+                  <h4 style="margin: 0 0 10px; color: #1e293b; font-size: 1.1rem;">딥러닝 (DL)</h4>
+                  <p style="font-size: 0.92rem; color: #6d28d9; margin-bottom: 8px;"><b>"인간의 뇌신경망을 본떠 비정형 데이터를 직접 정복"</b></p>
+                  <p style="font-size: 0.88rem; color: #475569; margin: 0; line-height: 1.6;">
+                    차량 도장면 사진을 보고 스크래치 등급을 자동 판별하거나, 의사의 녹취록 음성을 듣고 진료 요약본을 생성하는 고난도 영역입니다.
+                  </p>
+                </div>
+
+              </div>
+
+              <div style="background: #f1f5f9; padding: 16px; border-radius: 8px; border-left: 4px solid #4f46e5;">
+                <h5 style="margin: 0 0 6px; color: #312e81; font-size: 0.98rem;">🎯 PM 관점에서의 핵심 차이 &amp; 비유</h5>
+                <p style="margin: 0 0 6px; color: #475569; font-size: 0.9rem;">
+                  • <b>머신러닝 (특징을 사람이 알려줌):</b> 아이에게 자전거를 가르칠 때 <i>"바퀴가 2개고 페달이 달린 것이 자전거란다"</i> 하고 핵심 Feature를 직접 지정해 짚어주는 방식. (엑셀/CSV 정형 데이터에 가성비 최상)<br>
+                  • <b>딥러닝 (AI가 스스로 특징을 깨우침):</b> 사람의 설명 없이 자전거 사진 수만 장을 던져주면 AI 스스로 공통점과 미세 특징을 깨우치는 방식. (이미지, 음성, 텍스트 등 방대한 데이터와 막대한 컴퓨팅 파워 필요)
+                </p>
+              </div>
+            </div>
+          `
+        },
+        {
+          secTitle: '🗺️ 2. 머신러닝(ML) 핵심 지도: 지도학습 vs 비지도학습',
+          secDesc: '실무와 기획의 80%는 정답(Y)이 존재하는 지도학습! 분류(Classification), 회귀(Regression), 군집화(Clustering)',
+          content: `
+            <div class="dl-card" style="border-radius: 12px; padding: 22px; background: #ffffff; border: 1px solid #e2e8f0;">
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; margin-bottom: 20px;">
+                <div style="border: 2px solid #3b82f6; border-radius: 10px; padding: 18px; background: rgba(59, 130, 246, 0.02);">
+                  <div style="font-weight: 700; color: #1d4ed8; font-size: 1.05rem; margin-bottom: 10px;">① 지도학습 (Supervised Learning) : 정답(Y)이 있는 데이터</div>
+                  
+                  <div style="margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px dashed #cbd5e1;">
+                    <b style="color: #0f172a;">● 분류 (Classification) : O냐 X냐 / 범주 맞히기</b>
+                    <p style="margin: 4px 0 6px; font-size: 0.88rem; color: #475569;">
+                      예: <code>medical.csv</code>에서 다음 주 화요일 환자가 <b>"올 것인가(No), 안 올 것인가(Yes)?"</b> 예측
+                    </p>
+                    <div style="font-size: 0.82rem; color: #2563eb; background: #eff6ff; padding: 4px 8px; border-radius: 4px; display: inline-block;">
+                      대표 모델: 로지스틱 회귀, 랜덤 포레스트, <b>XGBoost / LightGBM</b> (현업 정형 데이터의 제왕)
+                    </div>
+                  </div>
+
+                  <div>
+                    <b style="color: #0f172a;">● 회귀 (Regression) : 구체적인 숫자(연속값) 맞히기</b>
+                    <p style="margin: 4px 0 6px; font-size: 0.88rem; color: #475569;">
+                      예: 행복지도 데이터에서 특정 구의 1인당 GRDP와 예산을 보고 <b>"내년도 행복지수 몇 점(0.00~1.00)일까?"</b> 예측
+                    </p>
+                    <div style="font-size: 0.82rem; color: #2563eb; background: #eff6ff; padding: 4px 8px; border-radius: 4px; display: inline-block;">
+                      대표 모델: 선형 회귀(Linear Regression), Lasso, Ridge
+                    </div>
+                  </div>
+                </div>
+
+                <div style="border: 2px solid #10b981; border-radius: 10px; padding: 18px; background: rgba(16, 185, 129, 0.02);">
+                  <div style="font-weight: 700; color: #047857; font-size: 1.05rem; margin-bottom: 10px;">② 비지도학습 (Unsupervised Learning) : 정답 없이 묶기</div>
+                  
+                  <b style="color: #0f172a;">● 군집화 (Clustering) : 유사한 성격끼리 그룹화</b>
+                  <p style="margin: 6px 0 10px; font-size: 0.88rem; color: #475569; line-height: 1.6;">
+                    정답 라벨이 없어도 데이터의 거리(유사도)를 계산하여 성격이 비슷한 그룹끼리 자동 클러스터링합니다.<br>
+                    <i>예: 전국 229개 시군구를 건강/경제/안전 점수에 따라 <b>"고소득·의료특화형 구", "친환경·여가특화형 군"</b> 등 4~5개 그룹으로 자동 분류</i>
+                  </p>
+                  <div style="font-size: 0.82rem; color: #047857; background: #ecfdf5; padding: 4px 8px; border-radius: 4px; display: inline-block;">
+                    대표 모델: K-Means 군집화, DBSCAN
+                  </div>
+                </div>
+              </div>
+
+              <div style="background: #1e293b; color: #f8fafc; padding: 16px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 0.88rem;">
+                <span style="color: #94a3b8;"># 기획자 관점의 실전 3줄 코딩 흐름 (Scikit-Learn)</span><br>
+                <span style="color: #f43f5e;">from</span> sklearn.ensemble <span style="color: #f43f5e;">import</span> RandomForestClassifier<br><br>
+                model = RandomForestClassifier()  <span style="color: #64748b;"># 1. 모델 부르기</span><br>
+                model.fit(X_train, y_train)        <span style="color: #64748b;"># 2. 공부시키기 (fit: 패턴 학습)</span><br>
+                pred = model.predict(X_test)      <span style="color: #64748b;"># 3. 예측하기 (predict: 추론)</span>
+              </div>
+
+            </div>
+          `
+        },
+        {
+          secTitle: '📖 3. 머신러닝 필수 용어 5개 (이것만 알면 실무 대화 끝)',
+          secDesc: 'Feature, Target, Train/Test 분리, Overfitting, 평가지표(정확도 vs 재현율)',
+          content: `
+            <div class="dl-card" style="border-radius: 12px; padding: 22px; background: #ffffff; border: 1px solid #e2e8f0;">
+              <div style="display: flex; flex-direction: column; gap: 14px;">
+                
+                <div style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid #3b82f6; border-radius: 6px;">
+                  <strong style="color: #1e293b; font-size: 0.98rem;">1. 특징 (Feature, X)</strong>
+                  <p style="margin: 4px 0 0; color: #475569; font-size: 0.88rem;">예측에 쓰이는 입력 재료 (예: 환자 나이, 예약 선행일수, SMS 수신 여부, 이전 노쇼 횟수)</p>
+                </div>
+
+                <div style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid #10b981; border-radius: 6px;">
+                  <strong style="color: #1e293b; font-size: 0.98rem;">2. 타깃/라벨 (Target/Label, y)</strong>
+                  <p style="margin: 4px 0 0; color: #475569; font-size: 0.88rem;">맞혀야 하는 최종 정답 (예: 노쇼 여부 1 or 0, 내년도 매출액)</p>
+                </div>
+
+                <div style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid #f59e0b; border-radius: 6px;">
+                  <strong style="color: #1e293b; font-size: 0.98rem;">3. 학습/테스트 분리 (Train / Test Split)</strong>
+                  <p style="margin: 4px 0 0; color: #475569; font-size: 0.88rem;">
+                    전체 11만 건 중 8만 건으로 공부(Train)시키고, 모델이 한 번도 본 적 없는 나머지 3만 건(Test)으로 모의고사를 봐서 실전 성능을 검증합니다.
+                  </p>
+                </div>
+
+                <div style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid #ef4444; border-radius: 6px;">
+                  <strong style="color: #1e293b; font-size: 0.98rem;">4. 과적합 (Overfitting)</strong>
+                  <p style="margin: 4px 0 0; color: #475569; font-size: 0.88rem;">
+                    연습문제 정답만 달달 외워 학습용 데이터에서는 100점 맞지만, 실전(새로운 환자 데이터)에 들어가면 엉뚱한 오답을 내는 상태 (일반화 성능 결여).
+                  </p>
+                </div>
+
+                <div style="padding: 12px 16px; background: #f8fafc; border-left: 4px solid #8b5cf6; border-radius: 6px;">
+                  <strong style="color: #1e293b; font-size: 0.98rem;">5. 평가지표 (정확도 vs 재현율 Recall &amp; F1-Score)</strong>
+                  <p style="margin: 4px 0 0; color: #475569; font-size: 0.88rem; line-height: 1.5;">
+                    전체 10명 중 8명이 정상 방문(No)하는 불균형 데이터에서는 무조건 "다 옵니다"라고 찍어도 정확도는 80%가 나옵니다.<br>
+                    따라서 <b>"진짜 노쇼할 환자를 얼마나 안 놓치고 잡아냈는가(재현율, Recall)"</b>와 <b>F1-Score / AUC-ROC</b> 지표를 반드시 함께 봐야 합니다.
+                  </p>
+                </div>
+
+              </div>
+            </div>
+          `
+        },
+        {
+          secTitle: '🔬 4. 딥러닝(DL) 기초 개념 뼈대: 활성화함수 &amp; 3대 분야',
+          secDesc: '인공신경망(ANN), 순전파/역전파 경사하강법, 비선형 활성화함수(ReLU/Sigmoid), CNN/RNN/Transformer',
+          content: `
+            <div class="dl-card" style="border-radius: 12px; padding: 22px; background: #ffffff; border: 1px solid #e2e8f0;">
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+                <div style="background: #faf5ff; padding: 16px; border-radius: 8px;">
+                  <h5 style="margin: 0 0 8px; color: #6d28d9; font-size: 1rem;">인공신경망(ANN) 학습 원리</h5>
+                  <ol style="margin: 0; padding-left: 18px; color: #475569; font-size: 0.88rem; line-height: 1.6;">
+                    <li><b>순전파:</b> 데이터를 넣고 예측값을 뽑음</li>
+                    <li><b>손실 계산:</b> 실제 정답과 비교해 오차(Loss) 산출</li>
+                    <li><b>역전파/경사하강법:</b> 오차를 줄이는 방향으로 신경망 가중치를 거꾸로 수정</li>
+                  </ol>
+                </div>
+
+                <div style="background: #eff6ff; padding: 16px; border-radius: 8px;">
+                  <h5 style="margin: 0 0 8px; color: #1e40af; font-size: 1rem;">핵심 무기: 활성화 함수 (Activation)</h5>
+                  <p style="margin: 0; color: #475569; font-size: 0.88rem; line-height: 1.6;">
+                    선형 계산만 반복하면 아무리 층을 깊게 쌓아도 1개의 직선 계산과 같습니다.<br>
+                    데이터를 구부리고 꺾어주는 <b>비선형 활성화 함수(시그모이드, ReLU 등)</b>를 각 층마다 통과시켜야 복잡한 이미지·음성 패턴을 학습할 수 있습니다.
+                  </p>
+                </div>
+              </div>
+
+              <div style="border-top: 1px solid #e2e8f0; padding-top: 14px;">
+                <h5 style="margin: 0 0 10px; color: #0f172a; font-size: 0.95rem;">실무 3대 딥러닝 아키텍처</h5>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                  <div style="padding: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <b style="color: #0284c7;">CNN (컴퓨터 비전)</b>
+                    <p style="margin: 4px 0 0; font-size: 0.82rem; color: #64748b;">이미지 및 영상 처리, 객체 탐지, 차량 도장 스크래치 판별</p>
+                  </div>
+                  <div style="padding: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <b style="color: #d97706;">RNN / LSTM (시계열)</b>
+                    <p style="margin: 4px 0 0; font-size: 0.82rem; color: #64748b;">순서가 있는 데이터, 주가/센서 시계열 (현재 트랜스포머로 진화)</p>
+                  </div>
+                  <div style="padding: 10px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px;">
+                    <b style="color: #7c3aed;">Transformer (LLM 언어모델)</b>
+                    <p style="margin: 4px 0 0; font-size: 0.82rem; color: #64748b;">ChatGPT, Gemini, Claude 등 현대 생성형 AI의 기반 아키텍처</p>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          `
+        },
+        {
+          secTitle: '🔗 5. 왜 [SQL + Python + JSON] 조합이어야만 하는가?',
+          secDesc: '대용량 데이터 저장(SQL) ➔ 추론 두뇌(Python) ➔ 웹/앱 통신(JSON)으로 이어지는 엔터프라이즈 파이프라인 아키텍처',
+          content: `
+            <div class="dl-card" style="border-radius: 12px; padding: 22px; background: #ffffff; border: 1px solid #e2e8f0;">
+              
+              <!-- 아키텍처 도식 -->
+              <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 22px; background: #f8fafc; padding: 18px; border-radius: 10px; border: 1px solid #cbd5e1;">
+                <div style="flex: 1; min-width: 180px; background: #3b82f6; color: white; padding: 14px; border-radius: 8px; text-align: center;">
+                  <div style="font-weight: 700; font-size: 1.05rem;">1. SQL DB</div>
+                  <div style="font-size: 0.8rem; opacity: 0.9; margin-top: 4px;">대용량 로그 안전 저장 &amp; 0.1초 고속 필터링</div>
+                </div>
+                <div style="font-size: 1.3rem; color: #94a3b8; font-weight: bold;">➔</div>
+                <div style="flex: 1; min-width: 180px; background: #10b981; color: white; padding: 14px; border-radius: 8px; text-align: center;">
+                  <div style="font-weight: 700; font-size: 1.05rem;">2. Python Engine</div>
+                  <div style="font-size: 0.8rem; opacity: 0.9; margin-top: 4px;">머신러닝/DL 모델 학습 &amp; 실시간 추론 API</div>
+                </div>
+                <div style="font-size: 1.3rem; color: #94a3b8; font-weight: bold;">➔</div>
+                <div style="flex: 1; min-width: 180px; background: #f59e0b; color: white; padding: 14px; border-radius: 8px; text-align: center;">
+                  <div style="font-weight: 700; font-size: 1.05rem;">3. JSON Payload</div>
+                  <div style="font-size: 0.8rem; opacity: 0.9; margin-top: 4px;">프론트엔드 만능 데이터 통신 규격</div>
+                </div>
+                <div style="font-size: 1.3rem; color: #94a3b8; font-weight: bold;">➔</div>
+                <div style="flex: 1; min-width: 180px; background: #6366f1; color: white; padding: 14px; border-radius: 8px; text-align: center;">
+                  <div style="font-weight: 700; font-size: 1.05rem;">4. 웹 / 앱 UI</div>
+                  <div style="font-size: 0.8rem; opacity: 0.9; margin-top: 4px;">위험도 뱃지 및 액션 버튼 시각화</div>
+                </div>
+              </div>
+
+              <div style="display: grid; gap: 14px;">
+                <div style="padding: 14px; border-left: 4px solid #3b82f6; background: #eff6ff; border-radius: 4px;">
+                  <b style="color: #1e40af;">1. SQL (정확하고 안전한 데이터 추출)</b>
+                  <p style="margin: 4px 0 0; color: #334155; font-size: 0.88rem; line-height: 1.6;">
+                    파이썬은 10만, 100만 건 데이터를 직접 메모리에 다 올리면 RAM이 부족해 터집니다. 수백만 건의 병원 예약 로그에서 <i>"최근 6개월간 부도 이력이 있는 20대 환자"</i>만 0.1초 만에 깔끔하게 필터링해 뽑아오는 것은 SQL의 역할입니다.
+                  </p>
+                </div>
+
+                <div style="padding: 14px; border-left: 4px solid #10b981; background: #ecfdf5; border-radius: 4px;">
+                  <b style="color: #065f46;">2. Python (두뇌 역할: 모델 학습 및 추론)</b>
+                  <p style="margin: 4px 0 0; color: #334155; font-size: 0.88rem; line-height: 1.6;">
+                    SQL이 전달한 데이터를 받아 머신러닝 알고리즘(RandomForest, XGBoost)을 학습시키고, 학습된 모델 가중치(<code>.pkl</code>)를 바탕으로 새로운 예약이 들어올 때마다 실시간으로 <b>"노쇼 확률 78%"</b>를 연산합니다.
+                  </p>
+                </div>
+
+                <div style="padding: 14px; border-left: 4px solid #f59e0b; background: #fffbeb; border-radius: 4px;">
+                  <b style="color: #92400e;">3. JSON (웹/앱 프론트엔드와의 만능 통신 언어)</b>
+                  <p style="margin: 4px 0 0; color: #334155; font-size: 0.88rem; line-height: 1.6;">
+                    파이썬 데이터프레임 객체는 브라우저(React/HTML/JS)가 이해할 수 없습니다. 따라서 양방향 통신을 위해 국제 표준인 <b>JSON 포맷</b>으로 감싸서 송수신합니다:
+                  </p>
+                  <pre style="background: #1e293b; color: #38bdf8; padding: 10px; border-radius: 6px; font-size: 0.82rem; margin: 8px 0 0; overflow-x: auto;">
+// 보낼 때 (React ➔ FastAPI)
+{ "patient_id": 5642903, "age": 24, "lead_time": 18, "sms_received": 0 }
+
+// 모델 예측 결과 반환 (FastAPI ➔ React)
+{ "no_show_probability": 0.78, "risk_level": "HIGH", "action_required": "SEND_REMINDER" }
+                  </pre>
+                </div>
+              </div>
+
+            </div>
+          `
+        },
+        {
+          secTitle: '🚀 6. SLM (소형 언어 모델) &amp; 파인튜닝(Fine-Tuning) 전략',
+          secDesc: '거대 클라우드 LLM을 넘어 온디바이스(On-Device) 초경량화와 사내 맞춤형 파인튜닝으로 완성하는 AX 기획',
+          content: `
+            <div class="dl-card" style="border-radius: 12px; padding: 22px; background: #ffffff; border: 1px solid #e2e8f0;">
+              
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
+                <div style="padding: 16px; background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px;">
+                  <h5 style="margin: 0 0 10px; color: #166534; font-size: 1.05rem;">💡 SLM (Small Language Model)이란?</h5>
+                  <p style="margin: 0; color: #374151; font-size: 0.88rem; line-height: 1.6;">
+                    거대 LLM이 수천억 개의 파라미터를 가지고 무거운 클라우드 서버에서 돌아간다면, <b>SLM은 수십억(몇 B) 이하의 파라미터로 체급을 줄여 가볍고 효율적으로 만든 AI 모델</b>입니다.
+                  </p>
+                  <ul style="margin: 10px 0 0; padding-left: 18px; color: #166534; font-size: 0.84rem; line-height: 1.6;">
+                    <li><b>압도적 비용 절감:</b> 호출당 API 과금 없이 빠른 추론 속도</li>
+                    <li><b>온디바이스(On-Device):</b> 스마트폰, PC, 차량 기기 자체에서 오프라인 구동</li>
+                    <li><b>특화 도메인 최적화:</b> 사내 업무/특정 기기 제어에 가성비 최고</li>
+                  </ul>
+                </div>
+
+                <div style="padding: 16px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px;">
+                  <h5 style="margin: 0 0 10px; color: #6b21a8; font-size: 1.05rem;">🎯 기본 모델 vs 파인튜닝 (Fine-Tuning)</h5>
+                  <p style="margin: 0 0 10px; color: #374151; font-size: 0.88rem; line-height: 1.6;">
+                    • <b>기본 모델(Base Model):</b> 일반 지식을 광범위하게 알고 있는 '갓 졸업한 똑똑한 신입사원'<br>
+                    • <b>파인튜닝(Fine-Tuning):</b> 신입사원에게 <b>우리 서비스 기획서, 전용 매뉴얼, 도메인 전문 데이터</b>를 집중 온보딩 교육시키는 과정
+                  </p>
+                  <ul style="margin: 0; padding-left: 18px; color: #6b21a8; font-size: 0.84rem; line-height: 1.6;">
+                    <li><b>말투 및 포맷 고정:</b> 무조건 요약문 + 지정된 JSON 구조로만 출력</li>
+                    <li><b>환각(Hallucination) 방지:</b> 엉뚱한 거짓 답변 확률 최소화</li>
+                    <li><b>비용 절감:</b> 수백억 파운데이션 개발 대비 소자본 고성능 달성</li>
+                  </ul>
+                </div>
+              </div>
+
+              <div style="background: #1e1b4b; color: #e0e7ff; padding: 14px 18px; border-radius: 8px; font-size: 0.92rem; text-align: center; font-weight: 600;">
+                ✨ 테크 PM 핵심 요약: <b>단순 코더는 accuracy 숫자만 보지만, 기획자는 [SQL 데이터 추출 ➔ Python 실시간 추론 ➔ JSON 통신 ➔ SLM 온디바이스 파이프라인] 전체를 설계합니다.</b>
+              </div>
+
+            </div>
+          `
+        }
+      ]
+    },
+    {
       id: '1002',
       date: '10/02 (금)',
-      badge: 'LATEST',
+      badge: 'ARCHIVE',
       title: '🐍 초보자를 위한 파이썬 기초 개념 & 실전 프로젝트 완벽 가이드',
       subtitle: '모듈(Module)과 import, 필수 내장함수, time/os 표준모듈, 문자열 조작, 클래스/객체/상속, 연락처 관리 실전 프로젝트, 파일 입출력까지 비전공자 맞춤 마스터',
       tags: ['1002실무', '모듈', 'import', '내장함수', '표준모듈_time_os', '클래스_객체_self', '상속', '연락처프로젝트', '파일입출력_with_open', 'if_name_main', 'plot_savefig', 'ML_DL시각화', 'R시각화', 'barplot', 'hist_pie', 'igraph_treemap', '실습'],
