@@ -576,12 +576,114 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
   if (!container) return;
 
-  // 전체 날짜별 학습 데이터 (09/30, 09/29, 09/28_pm, 09/28, 09/24, 09/23, 09/22)
+  // 전체 날짜별 학습 데이터 (10/02, 10/01, 09/30, 09/29, 09/28_pm, 09/28, 09/24, 09/23, 09/22)
   const logsData = [
+    {
+      id: '1002',
+      date: '10/02 (금)',
+      badge: 'LATEST',
+      title: '🐍 초보자를 위한 파이썬 기초 개념 & 실전 프로젝트 완벽 가이드',
+      subtitle: '모듈(Module)과 import, 필수 내장함수, time/os 표준모듈, 문자열 조작, 클래스/객체/상속, 연락처 관리 실전 프로젝트, 파일 입출력까지 비전공자 맞춤 마스터',
+      tags: ['1002실무', '모듈', 'import', '내장함수', '표준모듈_time_os', '클래스_객체_self', '상속', '연락처프로젝트', '파일입출력_with_open', 'if_name_main', 'plot_savefig', 'ML_DL시각화', '리포트생성', '실습'],
+      sections: [
+        {
+          secTitle: '🧩 1. 모듈(Module)이란? & import 사용법',
+          icon: '🧩',
+          desc: '모든 기능을 한 파일에 모으지 않고 기능별(계산, 로그인, 결제 등)로 나눠 재사용하는 모듈의 필요성과 다양한 import 패턴을 이해합니다.',
+          cards: [
+            {
+              title: '💡 모듈(Module)의 핵심 개념',
+              detail: '• 다른 파이썬 파일(.py)에 미리 작성해 둔 기능(함수, 변수)을 필요할 때 가져다 쓰는 구조입니다.<br>• <strong>예시:</strong> <code>module_test.py</code>에 <code>cal_upper(price)</code>, <code>cal_lower(price)</code>, <code>author="pystock"</code> 작성 후 <code>module_use.py</code>에서 <code>import module_test</code>로 재사용!'
+            },
+            {
+              title: '🔑 import의 3가지 활용법',
+              detail: '① <strong>기본 import:</strong> <code>import os</code> → <code>os.listdir()</code><br>② <strong>특정 기능만 추출:</strong> <code>from os import listdir</code> → <code>listdir()</code><br>③ <strong>별칭(Alias) 지정:</strong> <code>import os as winos</code> → <code>winos.listdir()</code>'
+            }
+          ]
+        },
+        {
+          secTitle: '⚙️ 2. 자주 사용하는 내장 함수 & 표준 모듈 (time / os)',
+          icon: '⚙️',
+          desc: '별도 설치 없이 사용할 수 있는 파이썬 기본 제공 내장 함수와 필수 표준 모듈(time, os)의 실무 활용 패턴입니다.',
+          table: {
+            headers: ['종류', '함수/메서드', '설명 및 핵심 역할', '사용 예시'],
+            rows: [
+              ['내장 함수', 'len()', '데이터의 요소 개수 또는 문자열의 길이 산출', 'len(["철수", "영희"]) → 2'],
+              ['내장 함수', 'max() / min()', '데이터 집합에서 최대 / 최솟값 탐색', 'max([10, 30, 20]) → 30'],
+              ['내장 함수', 'abs() / sorted()', '숫자의 절댓값 계산 / 데이터를 오름차순 정렬', 'sorted([10, 2, 5]) → [2, 5, 10]'],
+              ['내장 함수', 'enumerate()', '반복문 순회 시 (순서 번호 인덱스, 값) 쌍 자동 생성', 'for i, name in enumerate(names):'],
+              ['표준 모듈', 'time.time() / time.ctime()', '1970-01-01 이후 경과 초(UNIX timestamp) / 사람 읽기 가능 형태로 변환', 'print(time.ctime())'],
+              ['표준 모듈', 'time.sleep(초)', '지정한 초 단위 시간 동안 프로그램 실행 일시 정지', 'time.sleep(3) # 3초 대기'],
+              ['표준 모듈', 'os.getcwd() / os.listdir()', '현재 실행 폴더 경로 확인 / 폴더 내 파일 및 서브폴더 목록 조회', 'os.listdir()'],
+              ['표준 모듈', 'endswith(확장자)', '문자열이 특정 확장자로 끝나는지 검사하여 필터링', 'if x.endswith(".exe"): print(x)']
+            ]
+          },
+          cards: [
+            {
+              title: '🔤 문자열 기능 & 실습: 도시 이름 3글자 대문자화',
+              detail: '• <code>.upper()</code>(대문자 변환)와 <code>[:3]</code>(앞 3글자 슬라이싱) 조합 실습:<br><code>def get_abbr(data): return [x[:3].upper() for x in data]</code><br>• 결과: <code>["Seoul", "Daegu", "Kwangju", "Jeju"]</code> → <code>["SEO", "DAE", "KWA", "JEJ"]</code>'
+            }
+          ]
+        },
+        {
+          secTitle: '📈 3. ML / DL 시각화 & 리포트 저장 (plot() & savefig())',
+          icon: '📈',
+          desc: '머신러닝(ML)과 딥러닝(DL) 모델 학습 시 손실/정확도 변화를 추적하는 plot()과 결과 그래프를 리포트용 파일로 저장하는 savefig()를 학습합니다.',
+          cards: [
+            {
+              title: '📊 plot() — ML / DL 모델 학습 추이 시각화',
+              detail: '• <strong>ML / DL 활용:</strong> 딥러닝 모델의 에포크(Epoch)별 <code>Loss</code>(손실) 감소 곡선 및 <code>Accuracy</code>(정확도) 변화 추이를 선 그래프로 그릴 때 핵심으로 쓰입니다.<br>• <strong>과적합(Overfitting) 진단:</strong> 훈련 손실과 검증 손실 그래프 차이를 시각적으로 파악하여 모델 상태를 모니터링합니다.<br>• <code>plt.plot(epochs, loss, label="Training Loss")</code>'
+            },
+            {
+              title: '🖼️ savefig() — 분석 결과 리포트(Report) 자동화 저장',
+              detail: '• <strong>리포트/보고서 활용:</strong> <code>plt.savefig("loss_report.png", dpi=300)</code>를 사용해 생성한 시각화 차트를 이미지/PDF 파일로 로컬 디스크에 저장합니다.<br>• <strong>자동화 연결:</strong> 모델 분석 결과를 보고서(Report) 파일에 자동으로 포함하거나 웹/대시보드 보고 자료 생성을 자동화할 때 핵심 역할을 합니다.'
+            }
+          ]
+        },
+        {
+          secTitle: '🏛️ 4. 클래스(Class) · 객체(Object) · 상속(Inheritance)',
+          icon: '🏛️',
+          desc: '붕어빵 틀(클래스)과 붕어빵(객체)의 명확한 개념 비유로 객체지향 프로그래밍(OOP) 기초를 완벽 정리합니다.',
+          cards: [
+            {
+              title: '🏗️ 클래스 기본 구조 (__init__ & self)',
+              detail: '• <strong>붕어빵 틀 = 클래스 / 붕어빵 = 객체(인스턴스)</strong><br>• <code>__init__(self, name, email, addr)</code>: 객체 생성 시 자동 호출되어 초기값을 설정하는 함수입니다.<br>• <code>self</code>: 지금 막 만들어지고 있는 객체 자기 자신을 가리키는 변수입니다.'
+            },
+            {
+              title: '🔄 클래스 변수 vs 인스턴스 변수',
+              detail: '• <strong>인스턴스 변수(self.name):</strong> 각각의 객체가 독립적으로 갖는 고유 데이터.<br>• <strong>클래스 변수(Account.num_account):</strong> 모든 객체가 함께 공유하여 계좌 수 카운팅 등에 누적 사용되는 데이터.'
+            },
+            {
+              title: '🧬 상속(Inheritance)의 개념',
+              detail: '• 부모 클래스의 검증된 기능(메서드)을 자식 클래스가 물려받아 재작성 없이 확장 사용하는 기법.<br>• <code>class ChildClass(ParentClass): pass</code> → 자식 객체에서 <code>c.can()</code> 호출 가능!'
+            }
+          ]
+        },
+        {
+          secTitle: '📱 5. 실전 프로젝트: 연락처 관리 & 파일 입출력 (File I/O)',
+          icon: '📱',
+          desc: 'Contact 클래스와 리스트 구조를 바탕으로 연락처 CRUD 기능을 만들고 파일(db.txt) 저장을 통해 영구 보관합니다.',
+          cards: [
+            {
+              title: '💾 파일 입출력 & with open 권장 패턴',
+              detail: '• <code>open("db.txt", "w")</code>로 저장, <code>open("db.txt", "r")</code>로 다시 읽기.<br>• <strong>권장 패턴:</strong> <code>with open("db.txt", "r") as file:</code> 구문을 사용하면 파일 작업을 마친 후 <code>file.close()</code>를 자동으로 처리해 줍니다.'
+            },
+            {
+              title: '🛡️ if __name__ == "__main__": 원리와 필수 이유',
+              detail: '• "해당 파일을 직접 실행했을 때만 <code>run()</code>을 구동하라."는 의미입니다.<br>• 메인 실행 파일일 때는 정상 작동하고, 다른 파일에서 모듈로 <code>import</code>될 때는 불필요한 자동 실행을 방지합니다.'
+            },
+            {
+              title: '💡 초보자를 위한 핵심 요약 & 백엔드/AI 연결',
+              detail: '• 파이썬은 변수 → 함수 → 리스트 → 모듈 → 클래스 → 파일/DB 저장을 조합하여 웹 백엔드, API, 데이터 처리, AI 챗봇 서비스로 확장되는 핵심 연결 고리입니다.'
+            }
+          ]
+        }
+      ]
+    },
     {
       id: '1001',
       date: '10/01 (목)',
-      badge: 'LATEST',
+      badge: 'BEST',
       title: '📊 파이썬 판다스(Pandas) 기초 뼈대 & 실무 데이터 분석 3대 패턴',
       subtitle: 'Series vs DataFrame 핵심 구조부터 빅데이터 3V, .loc/.iloc 인덱싱, .describe() 건강검진, 파생변수 생성 완벽 정리',
       tags: ['1001실무', 'pandas', 'Series_DataFrame', 'loc_iloc', 'describe', '파생변수', '불리언인덱싱', '빅데이터3V', '개발팁', '실습'],
@@ -2550,7 +2652,7 @@ print(response.choices[0].message.content)
 
   // 현재 필터 상태
   let currentFilter = {
-    date: '0930',
+    date: '1002',
     keyword: '',
     tag: 'all'
   };

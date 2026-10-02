@@ -151,7 +151,8 @@
               <select id="dateSelect" class="daily-form__select" aria-label="학습 날짜 선택">
                 <option value="all">전체 날짜 한눈에 보기</option>
                 <option value="practice">🧪 [실습 모아보기] 전체 실습 코드 &amp; Lab만 모아보기</option>
-                <option value="1001" selected>10/01 (목) 📊 파이썬 판다스(Pandas) 기초 뼈대 &amp; 실무 데이터 분석 3대 패턴</option>
+                <option value="1002" selected>10/02 (금) 🐍 초보자를 위한 파이썬 기초 개념 &amp; 실전 프로젝트 가이드 (모듈 · 클래스 · 파일I/O)</option>
+                <option value="1001">10/01 (목) 📊 파이썬 판다스(Pandas) 기초 뼈대 &amp; 실무 데이터 분석 3대 패턴</option>
                 <option value="0930">09/30 (수) · 파이썬 실무 종합 총정리 (12종 실무함수 · CSS협업 · 보안금고 · 클래스)</option>
                 <option value="0929">09/29 (화) · 파이썬 기초 문법 테크 PM 번역 &amp; 비즈니스 룰 엔진</option>
                 <option value="0928_pm">⚡ [단독] 조진훈 PM 실무 해석 (삼항 연산자 &amp; 리스트 컴프리헨션)</option>
@@ -182,9 +183,11 @@
           <button type="button" class="daily-pill daily-pill--practice" data-date="practice">
             <span class="daily-pill__badge daily-pill__badge--practice">LAB</span> 🧪 실습 모아보기
           </button>
-          <button type="button" class="daily-pill is-active" data-date="0930">
-            <span class="daily-pill__badge">NEW</span> 09/30 (수) 파이썬 실무 종합
+          <button type="button" class="daily-pill is-active" data-date="1002">
+            <span class="daily-pill__badge">NEW</span> 10/02 (금) 파이썬 기초&amp;클래스
           </button>
+          <button type="button" class="daily-pill" data-date="1001">10/01 (목) Pandas 기초</button>
+          <button type="button" class="daily-pill" data-date="0930">09/30 (수) 파이썬 실무 종합</button>
           <button type="button" class="daily-pill" data-date="0929">09/29 (화) PM 번역 &amp; 룰 엔진</button>
           <button type="button" class="daily-pill" data-date="0928_pm">
             <span class="daily-pill__badge">FOCUS</span> ⚡ 조진훈 PM 실무 해석
@@ -200,6 +203,7 @@
           <span class="daily-form__tags-label">인기 태그:</span>
           <button type="button" class="daily-tag" data-tag="all">#전체태그</button>
           <button type="button" class="daily-tag daily-tag--practice" data-tag="실습">🧪 #실습</button>
+          <button type="button" class="daily-tag" data-tag="plot_savefig">📊 #plot_savefig</button>
           <button type="button" class="daily-tag" data-tag="0930실무종합">#0930실무종합</button>
           <button type="button" class="daily-tag" data-tag="12종실무함수">#12종실무함수</button>
           <button type="button" class="daily-tag" data-tag="파일입출력open">#파일입출력open</button>
