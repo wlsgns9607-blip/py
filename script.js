@@ -584,7 +584,7 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
       badge: 'LATEST',
       title: '🐍 초보자를 위한 파이썬 기초 개념 & 실전 프로젝트 완벽 가이드',
       subtitle: '모듈(Module)과 import, 필수 내장함수, time/os 표준모듈, 문자열 조작, 클래스/객체/상속, 연락처 관리 실전 프로젝트, 파일 입출력까지 비전공자 맞춤 마스터',
-      tags: ['1002실무', '모듈', 'import', '내장함수', '표준모듈_time_os', '클래스_객체_self', '상속', '연락처프로젝트', '파일입출력_with_open', 'if_name_main', 'plot_savefig', 'ML_DL시각화', '리포트생성', '실습'],
+      tags: ['1002실무', '모듈', 'import', '내장함수', '표준모듈_time_os', '클래스_객체_self', '상속', '연락처프로젝트', '파일입출력_with_open', 'if_name_main', 'plot_savefig', 'ML_DL시각화', 'R시각화', 'barplot', 'hist_pie', 'igraph_treemap', '실습'],
       sections: [
         {
           secTitle: '🧩 1. 모듈(Module)이란? & import 사용법',
@@ -641,7 +641,33 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
           ]
         },
         {
-          secTitle: '🏛️ 4. 클래스(Class) · 객체(Object) · 상속(Inheritance)',
+          secTitle: '📊 4. R 언어 기반 그래픽 시각화 핵심 요소',
+          icon: '📊',
+          desc: 'R 언어를 활용한 기초 2차원 시각화부터 범주형 막대그래프, 통계 히스토그램, 고급 소셜 네트워크 관계도(igraph) 및 계층 트리맵(treemap)까지 완벽 정리합니다.',
+          table: {
+            headers: ['시각화 기법', '주요 함수 / 옵션', '시각화 형태 및 핵심 역할', '주요 파라미터 / 실무 예시'],
+            rows: [
+              ['기본 그래픽', 'plot()', '2차원 산점도 및 꺾은선 그래프 시각화', 'x, y축 지정, type(형태), lty(선모양), col(색상)'],
+              ['막대그래프', 'barplot()', '범주형 데이터를 세로/가로 막대로 비교 표현', 'beside=T (그룹별 병렬 배치), horiz=T (가로 배치)'],
+              ['히스토그램', 'hist()', '수치형 연속 데이터를 구간별 빈도수로 분할 표현', 'breaks(구간 설정), main(제목), col(색상)'],
+              ['파이 차트', 'pie()', '전체 데이터 대비 항목별 비율을 원형 부채꼴로 전달', 'labels(범주 이름표), col(색상 팔레트)'],
+              ['관계도', 'igraph', '노드(Node)와 선(Link)으로 소셜 네트워크/조직도 표현', '상사-부하 관계, 인맥 네트워크 구조 시각화'],
+              ['트리맵', 'treemap', '계층적 데이터를 면적 및 구역별 사각형으로 시각화', '대분류-소분류 비율 구조를 사각형 면적으로 표현']
+            ]
+          },
+          cards: [
+            {
+              title: '🎨 plot() 기본 옵션 & barplot 그룹 비교',
+              detail: '• <code>plot(x, y, type="o", lty=2, col="blue")</code>: 데이터 포인트를 점과 선으로 연결하여 추세 시각화.<br>• <code>barplot(data, beside=TRUE, horiz=TRUE)</code>: 범주형 데이터를 옆으로 나란히 배치하거나 가로 방향으로 정렬하여 그룹 비교.'
+            },
+            {
+              title: '🕸️ igraph & treemap 고급 다차원 데이터 시각화',
+              detail: '• <code>igraph</code>: 조직 내 상사/부하 관계, 사용자 소셜 네트워크 구조를 노드간 커넥션으로 시각화.<br>• <code>treemap</code>: 복잡한 예산 비율이나 계층별 매출 비중을 면적 크기와 색상 농도로 명확히 직관 전달.'
+            }
+          ]
+        },
+        {
+          secTitle: '🏛️ 5. 클래스(Class) · 객체(Object) · 상속(Inheritance)',
           icon: '🏛️',
           desc: '붕어빵 틀(클래스)과 붕어빵(객체)의 명확한 개념 비유로 객체지향 프로그래밍(OOP) 기초를 완벽 정리합니다.',
           cards: [
@@ -660,7 +686,7 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
           ]
         },
         {
-          secTitle: '📱 5. 실전 프로젝트: 연락처 관리 & 파일 입출력 (File I/O)',
+          secTitle: '📱 6. 실전 프로젝트: 연락처 관리 & 파일 입출력 (File I/O)',
           icon: '📱',
           desc: 'Contact 클래스와 리스트 구조를 바탕으로 연락처 CRUD 기능을 만들고 파일(db.txt) 저장을 통해 영구 보관합니다.',
           cards: [
