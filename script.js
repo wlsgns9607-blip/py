@@ -584,7 +584,7 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
       badge: 'LATEST',
       title: '🚀 머신러닝 vs 딥러닝 완성 · AI 3대 트렌드(RAG/파인튜닝) · 피지컬AI & 지도학습 4단계',
       subtitle: '정형·비정형 데이터별 AI 모델(XGBoost vs Transformer), 과대·과소적합 극복, 기업의 AI 활용 3트렌드, 5대 AI 프로젝트 직군, 지도학습 4단계 & Pandas 실습',
-      tags: ['1006실무', '머신러닝', '딥러닝', 'AI레스토랑_5대직군', '사내AI구축', 'LoRA_포스트잇튜닝', '지식그래프', 'CNN', '비정형데이터', '의사결정나무', '대출승인분류', '피지컬AI', 'RAG_파인튜닝', '지도학습4단계', '판다스기초', '펑션콜_벡터DB', '과대적합_Overfitting', '실습'],
+      tags: ['1006실무', '머신러닝', '딥러닝', 'MLOps_서빙', 'FastAPI_Docker', 'AI레스토랑_5대직군', '사내AI구축', 'LoRA_포스트잇튜닝', '지식그래프', 'CNN', '비정형데이터', '의사결정나무', '대출승인분류', '피지컬AI', 'RAG_파인튜닝', '지도학습4단계', '판다스기초', '펑션콜_벡터DB', '과대적합_Overfitting', '실습'],
       sections: [
         {
           secTitle: '🧠 1. 머신러닝 vs 딥러닝 개념 요약 & 3대 학습 방식',
@@ -973,6 +973,82 @@ print("[Step 5] vLLM / FastAPI 기반으로 사내 메신저 및 인트라넷에
               ['백엔드 / MLOps', '홀 서빙 매니저', 'FastAPI 모델 서빙, 동시 접속 방어, 24시간 모니터링', '직원/고객에게 안정적인 무중단 AI 서비스 제공']
             ]
           }
+        },
+        {
+          secTitle: '🚀 10. 사내 배포(Serving) & MLOps 4대 인프라 스택 (FastAPI · Docker · Cloud · vLLM)',
+          icon: '🚀',
+          desc: '"서버가 죽으면 우리도 죽는다!" 무중단 사내 AI 서비스를 위한 백엔드/MLOps 수문장 마인드와 실무 포트폴리오의 실체',
+          cards: [
+            {
+              title: '🛡️ 역할 (백엔드 / MLOps 엔지니어)',
+              detail: '• <strong>"서버가 죽으면 우리도 죽는다!"</strong>는 마인드로, 수천 명이 동시에 접속해도 서버가 뻗지 않게 튼튼한 방어벽을 치는 인프라 전문가입니다.'
+            },
+            {
+              title: '⚡ FastAPI: 초고속 비동기 웹 API 도구',
+              detail: '• 파이썬으로 가볍고 빠르게 웹 서버를 만들어 주는 도구입니다.<br>• 비동기(async) 지원과 Pydantic 기반의 자동 데이터 검증으로 AI/LLM 서빙 표준으로 쓰입니다.'
+            },
+            {
+              title: '📦 Docker (도커): 마법의 환경 격리 상자',
+              detail: '• 프로그램을 실행할 때 필요한 모든 환경(파이썬, 라이브러리, 의존성)을 <b>\'컨테이너(상자)\'</b>에 깔끔하게 포장해서, 어디서든 오류 없이 똑같이 실행되게 해주는 마법의 상자입니다.'
+            },
+            {
+              title: '☁️ AWS / GCP: 거대한 클라우드 공간',
+              detail: '• 아마존(AWS)이나 구글(GCP)이 빌려주는 거대한 가상 컴퓨터 서버 공간으로, 오토스케일링을 통해 대규모 트래픽을 유연하게 감당합니다.'
+            },
+            {
+              title: '🏎️ vLLM / Ollama: 초고속 AI 모델 실행 엔진',
+              detail: '• AI 대형 언어 모델을 서버에서 메모리 낭비 없이 빠르고 안정적으로 돌리게 해주는 실무 전용 초고속 추론 엔진입니다.'
+            },
+            {
+              title: '💼 포트폴리오 예시가 뜻하는 실무적 실체',
+              detail: '• <i>"내가 만든 커스텀 AI 모델을 도커와 FastAPI로 잘 포장해서 클라우드 서버에 올린 뒤, 동시 접속자 100명이 몰려와도 서버가 안 뻗고 잘 버티는지(스트레스 테스트) 직접 검증해 본 무중단 서비스 시스템입니다"</i>라는 뜻의 실무 결과물 예시입니다.'
+            }
+          ],
+          code: `# ========================================================
+# [실무 서빙 코드] FastAPI + Pydantic 기반 사내 AI 서빙 API
+# ========================================================
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import uvicorn
+
+app = FastAPI(title="Company Private AI Serving API", version="1.0")
+
+# 1. 요청/응답 데이터 규격 정의 (Pydantic 스키마)
+class PromptRequest(BaseModel):
+    query: str
+    department: str = "전사공통"
+    max_tokens: int = 256
+
+class AIResponse(BaseModel):
+    status: str
+    answer: str
+    served_by: str
+
+# 2. 사내 AI 모델 서빙 엔드포인트
+@app.post("/v1/chat/completions", response_model=AIResponse)
+async def generate_response(req: PromptRequest):
+    if not req.query.strip():
+        raise HTTPException(status_code=400, detail="질문 내용을 입력해주세요.")
+    
+    # 실제 환경: vLLM 엔진 호출 (예: await vllm_engine.generate(req.query))
+    simulated_answer = f"[사내 AI 답변] '{req.query}'에 대해 사내 규정 DB를 기반으로 생성된 답변입니다."
+    
+    return AIResponse(
+        status="success",
+        answer=simulated_answer,
+        served_by="FastAPI + Docker Container (vLLM Engine)"
+    )
+
+# --------------------------------------------------------
+# 3. Dockerfile 포장 예시:
+# FROM python:3.11-slim
+# RUN pip install fastapi uvicorn vllm
+# CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# --------------------------------------------------------
+if __name__ == "__main__":
+    uvicorn.run(app, host="127.0.0.1", port=8000)
+`,
+          summary: 'FastAPI와 Docker로 커스텀 AI 모델을 격리 패키징하고, AWS/GCP 클라우드 및 vLLM 엔진 환경에서 동시 접속 부하를 방어하며 무중단으로 안정 서빙하는 MLOps 인프라 구축 핵심 파이프라인입니다.'
         }
       ]
     },
