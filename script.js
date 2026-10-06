@@ -583,8 +583,8 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
       date: '10/06 (화)',
       badge: 'LATEST',
       title: '🚀 머신러닝 vs 딥러닝 완성 · AI 3대 트렌드(RAG/파인튜닝) · 피지컬AI & 지도학습 4단계',
-      subtitle: '정형·비정형 데이터별 AI 모델(XGBoost vs Transformer), 과대·과소적합 극복, 기업의 AI 활용 3트렌드, 5대 AI 프로젝트 직군, 지도학습 4단계 & Pandas 실습',
-      tags: ['1006실무', '머신러닝', '딥러닝', 'MLOps_서빙', 'FastAPI_Docker', 'AI레스토랑_5대직군', '사내AI구축', 'LoRA_포스트잇튜닝', '지식그래프', 'CNN', '비정형데이터', '의사결정나무', '대출승인분류', '피지컬AI', 'RAG_파인튜닝', '지도학습4단계', '판다스기초', '펑션콜_벡터DB', '과대적합_Overfitting', '실습'],
+      subtitle: '정형·비정형 데이터별 AI 모델(XGBoost vs Transformer), 과대·과소적합 극복, 기업의 AI 활용 3트렌드, 5대 AI 프로젝트 직군, 지도학습 4단계 & Pandas 실습 · 레모네이드 판매 예측(TensorFlow 회귀)',
+      tags: ['1006실무', '레모네이드_판매예측', 'TensorFlow_Keras', 'fit_predict', '회귀모델_실습', '머신러닝', '딥러닝', 'MLOps_서빙', 'FastAPI_Docker', 'AI레스토랑_5대직군', '사내AI구축', 'LoRA_포스트잇튜닝', '지식그래프', 'CNN', '비정형데이터', '의사결정나무', '대출승인분류', '피지컬AI', 'RAG_파인튜닝', '지도학습4단계', '판다스기초', '펑션콜_벡터DB', '과대적합_Overfitting', '실습'],
       sections: [
         {
           secTitle: '🧠 1. 머신러닝 vs 딥러닝 개념 요약 & 3대 학습 방식',
@@ -1353,6 +1353,81 @@ if __name__ == "__main__":
 
             </div>
           `
+        },
+        {
+          isPractice: true,
+          practiceTitle: '🍋 레모네이드 판매 예측 코드 한눈에 보기 (지도학습 회귀 모델)',
+          secTitle: '🍋 7. 레모네이드 판매 예측 코드 한눈에 보기 (pandas & TensorFlow 회귀)',
+          icon: '🍋',
+          desc: '인터넷의 레모네이드 장사 기록(온도와 판매량 표)을 pandas로 원인과 결과로 분리하고, TensorFlow 1-Input 1-Output 신경망을 만들어 10회 학습(fit) 후 15도일 때의 판매량을 예측(predict)하는 3단계 전 과정',
+          cards: [
+            {
+              title: '📥 1. 데이터 불러오기 (pandas)',
+              detail: '인터넷에 있는 레모네이드 장사 기록(온도와 판매량 표)을 프로그램 안으로 가져와서, <b>원인(온도)</b>과 <b>결과(판매량)</b> 데이터로 싹 분리합니다.<br>• <strong>원인 (독립변수 X):</strong> <code>레모네이드[[\'온도\']]</code><br>• <strong>결과 (종속변수 Y):</strong> <code>레모네이드[[\'판매량\']]</code>'
+            },
+            {
+              title: '🏗️ 2. AI 모델 뼈대 만들기 (TensorFlow)',
+              detail: '<i>"온도(입력 1개)를 넣으면 판매량(출력 1개)을 뱉어내는 아주 단순한 형태의 예측 기계(모델)를 만들어라"</i>라고 설정하는 코드입니다.<br>• <strong>입력층(Input):</strong> <code>tf.keras.layers.Input(shape=[1])</code><br>• <strong>출력층(Dense):</strong> <code>tf.keras.layers.Dense(1)(X)</code><br>• <strong>컴파일(compile):</strong> <code>model.compile(loss=\'mse\')</code>'
+            },
+            {
+              title: '🎯 3. 학습시키고 예측하기 (fit & predict)',
+              detail: '• <strong>반복 학습(fit):</strong> <code>model.fit</code>을 눌러 컴퓨터에게 데이터를 10번(<code>epochs=10</code>) 반복해서 공부시킵니다.<br>• <strong>실전 예측(predict):</strong> 공부가 끝나면 <code>model.predict</code>를 이용해 <i>"그럼 온도가 15도일 때는 레모네이드가 몇 잔 팔릴까?"</i> 하고 물어보고, AI가 계산한 예측값(<code>[[25.681463]]</code>)을 화면에 띄워 확인합니다.'
+            }
+          ],
+          code: `# ==============================================================================
+# 🍋 레모네이드 판매 예측 코드 한눈에 보기 (지도학습 - 회귀 실습)
+# ==============================================================================
+
+# [1단계] 데이터 불러오기 (pandas)
+# 인터넷에 있는 레모네이드 장사 기록(온도와 판매량 표)을 프로그램 안으로 가져와서,
+# 원인(온도)과 결과(판매량) 데이터로 싹 분리합니다.
+import pandas as pd
+
+# 인터넷 장사 기록(온도, 판매량) 불러오기
+레모네이드 = pd.read_csv('https://raw.githubusercontent.com/blackdew/tensorflow1/master/csv/lemonade.csv')
+print("--- [데이터 미리보기] ---")
+print(레모네이드.head())
+
+# 원인(독립변수)과 결과(종속변수)로 싹 분리
+독립 = 레모네이드[['온도']]
+종속 = 레모네이드[['판매량']]
+print("\n독립변수(원인) 형태:", 독립.shape)
+print("종속변수(결과) 형태:", 종속.shape)
+
+
+# [2단계] AI 모델 뼈대 만들기 (TensorFlow)
+# "온도(입력 1개)를 넣으면 판매량(출력 1개)을 뱉어내는 아주 단순한 형태의 예측 기계(모델)를 만들어라"
+import tensorflow as tf
+
+X = tf.keras.layers.Input(shape=[1]) # 원인(온도 1개) 입력
+Y = tf.keras.layers.Dense(1)(X)      # 결과(판매량 1개) 출력
+model = tf.keras.models.Model(X, Y)
+model.compile(loss=\'mse\')            # 평균제곱오차(MSE)로 공부 기준(오차 측정) 설정
+
+
+# [3단계] 학습시키고 예측하기 (fit & predict)
+# model.fit을 눌러 컴퓨터에게 데이터를 10번(epochs=10) 반복해서 공부시킵니다.
+print("\n--- [10회 반복 학습 시작] ---")
+model.fit(독립, 종속, epochs=10)
+
+# 공부가 끝나면 model.predict를 이용해
+# "그럼 온도가 15도일 때는 레모네이드가 몇 잔 팔릴까?" 하고 물어보고,
+# AI가 계산한 예측값([[25.681463]])을 화면에 띄워 확인합니다.
+예측값 = model.predict([[15]])
+print("\n[AI 최종 예측 결과] 온도가 15도일 때 예상 판매량:")
+print(예측값)
+# 출력 예시: [[25.681463]] 잔`,
+          table: {
+            headers: ['단계', '핵심 도구 / 함수', '역할 비유', '실행 내용'],
+            rows: [
+              ['1단계', 'pandas (read_csv, [[\'칼럼명\']])', '재료 손질', '인터넷 장사 기록에서 원인(온도)과 결과(판매량) 표 분리'],
+              ['2단계', 'TensorFlow (Input, Dense, compile)', '예측 기계 설계', '입력 1개(온도) ➔ 출력 1개(판매량) 뼈대 조립 및 loss 설정'],
+              ['3단계', 'model.fit(독립, 종속, epochs=10)', '반복 특훈 (공부)', '데이터를 10번 반복해서 보며 온도-판매량 간 수학적 공식 터득'],
+              ['4단계', 'model.predict([[15]])', '실전 예측 질의', '온도 15도 입력 시 AI 연산 결과 [[25.681463]] 잔 화면 출력']
+            ]
+          },
+          summary: '원인(독립변수: 온도)과 결과(종속변수: 판매량)를 pandas로 분리하고, TensorFlow로 1입력-1출력 신경망을 구성한 뒤 fit(10회 반복 공부)과 predict(15도 입력 ➔ 25.681463 잔 예측)로 이어지는 완벽한 지도학습 회귀 파이프라인 완성!',
+          note: '💡 <strong>지도학습 회귀 핵심:</strong> <code>epochs</code>(학습 횟수)를 늘릴수록 손실값(loss)이 줄어들며, AI가 기온과 레모네이드 판매량 사이의 숨겨진 규칙(수학 공식)을 정교하게 터득합니다.'
         }
       ]
     },
