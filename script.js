@@ -584,7 +584,7 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
       badge: 'LATEST',
       title: '🚀 머신러닝 vs 딥러닝 완성 · AI 3대 트렌드(RAG/파인튜닝) · 피지컬AI & 지도학습 4단계',
       subtitle: '정형·비정형 데이터별 AI 모델(XGBoost vs Transformer), 과대·과소적합 극복, 기업의 AI 활용 3트렌드, 5대 AI 프로젝트 직군, 지도학습 4단계 & Pandas 실습',
-      tags: ['1006실무', '머신러닝', '딥러닝', 'CNN', '비정형데이터', '의사결정나무', '대출승인분류', '피지컬AI', 'RAG_파인튜닝', '지도학습4단계', '판다스기초', '펑션콜_벡터DB', '과대적합_Overfitting', '실습'],
+      tags: ['1006실무', '머신러닝', '딥러닝', '사내AI구축', 'LoRA_포스트잇튜닝', '지식그래프', 'CNN', '비정형데이터', '의사결정나무', '대출승인분류', '피지컬AI', 'RAG_파인튜닝', '지도학습4단계', '판다스기초', '펑션콜_벡터DB', '과대적합_Overfitting', '실습'],
       sections: [
         {
           secTitle: '🧠 1. 머신러닝 vs 딥러닝 개념 요약 & 3대 학습 방식',
@@ -865,6 +865,81 @@ model.summary()
 print("\\n[알림] model.fit(epochs=5) 실행 시 5회 반복 학습을 통해 이미지 인식률이 점진적으로 향상됩니다!")
 `,
           summary: 'Conv2D(돋보기)와 MaxPool2D(크기 압축)로 시각 특징을 추출하고, Flatten/Dense로 1열 정렬 후 분류하며, model.fit(epochs=5)로 5회 반복 학습하는 Keras 딥러닝 이미지 처리 표준 파이프라인입니다.'
+        },
+        {
+          secTitle: '🏢 8. [기업 실무] 회사 전용 AI를 만드는 5단계 핵심 파이프라인 (LoRA & 지식그래프)',
+          icon: '🏢',
+          desc: '허깅페이스 깡통 뇌 다운로드부터 지식 그래프 데이터 구축, LoRA 포스트잇 가성비 튜닝, 모의고사 검증 및 사내 서빙까지의 전 과정',
+          cards: [
+            {
+              title: '📥 Step 1. 깡통 뇌 다운로드 (Model Load)',
+              detail: '• 전 세계 천재들이 만들어 둔 무료 오픈소스 기본 모델(Hugging Face 등) 중 우리 회사 서버 사정과 VRAM 용량에 맞는 것을 쇼핑하듯 선별 다운로드하는 단계입니다.'
+            },
+            {
+              title: '📑 Step 2. 맞춤형 훈련 데이터 구축 (Dataset Prep - 가장 힘든 과정!)',
+              detail: '• AI에게 먹일 <i>"사내 업무 질문-정답"</i> 짝꿍 데이터를 수만 개 정제 (Garbage In, Garbage Out).<br>• <strong>★ 지식 그래프(Knowledge Graph)의 맹활약:</strong> <i>"이재용 → 회장 → 삼성전자"</i>처럼 단어 간의 관계를 거미줄처럼 정리해 둔 지식 DB를 엮어주면, 단순 암기를 넘어 복잡한 기업 구조를 완벽히 추론하는 \'명탐정\'으로 진화합니다.'
+            },
+            {
+              title: '🏷️ Step 3. 가성비 튜닝 시작 (Training with LoRA - 포스트잇 과외법)',
+              detail: '• 수백 GB짜리 AI 전체 뇌를 다 뜯어고치려면 슈퍼컴퓨터가 필요합니다.<br>• <strong>LoRA 기적의 가성비:</strong> 원래 모델의 거대 뇌는 가만히 두고(Freeze), 꼭 필요한 뉴런 옆에 얇은 <b>\'포스트잇(가중치 어댑터)\'</b>만 덧붙여 사내 특수 지식을 주입! 일반 그래픽 카드 몇 개만으로도 튜닝 가능.'
+            },
+            {
+              title: '📝 Step 4. 모의고사 채점 및 안전 검사 (Evaluation & Safety)',
+              detail: '• AI가 헛소리(환각, Hallucination)를 하거나 사내 보안 규정을 어기고 엉뚱한 대답을 하지 않는지 깐깐하게 평가하고 가드레일(Guardrail)을 적용하는 단계입니다.'
+            },
+            {
+              title: '🚀 Step 5. 사내 배포 (Serving & Production)',
+              detail: '• 훈련이 끝난 \'우리 회사 전용 커스텀 모델\'을 사내망/서버에 올려, 전 직원이 사내 메신저나 웹에서 사내용 챗GPT처럼 안심하고 쓸 수 있게 오픈하는 최종 단계입니다.'
+            }
+          ],
+          code: `# ========================================================
+# [실무 가이드] Hugging Face & LoRA(PEFT) 사내 전용 AI 파이프라인
+# ========================================================
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from peft import LoraConfig, get_peft_model
+
+# --------------------------------------------------------
+# Step 1. 깡통 뇌 다운로드 (Model Load)
+# --------------------------------------------------------
+model_id = "meta-llama/Llama-3-8B-Instruct"  # 회사 서버 규모에 맞는 오픈소스 모델
+base_model = AutoModelForCausalLM.from_pretrained(model_id, load_in_4bit=True)
+tokenizer = AutoTokenizer.from_pretrained(model_id)
+print("[Step 1] 오픈소스 기본 모델 다운로드 및 로드 완료!")
+
+# --------------------------------------------------------
+# Step 2. 맞춤형 훈련 데이터 구축 (Dataset Prep & 지식 그래프)
+# (단어 간 거미줄 관계: "이재용 -> 회장 -> 삼성전자" 구조화)
+# --------------------------------------------------------
+qa_dataset = [
+    {"instruction": "출장비 청구 기한이 언제인가요?", "output": "출장 복귀 후 영업일 기준 7일 이내에 영수증을 첨부해야 합니다."},
+    {"instruction": "사내 보안 원칙 1조는?", "output": "외부 클라우드에 API 키나 고객 개인정보를 평문으로 업로드하는 행위를 엄격히 금지합니다."}
+]
+print("[Step 2] 사내 지식 그래프 연계 업무 QA 데이터셋 준비 완료!")
+
+# --------------------------------------------------------
+# Step 3. 가성비 튜닝 시작 (Training with LoRA - 포스트잇 과외법)
+# (원래 뇌는 고정하고, 얇은 포스트잇 어댑터만 덧붙여 튜닝)
+# --------------------------------------------------------
+lora_config = LoraConfig(
+    r=8,                            # 포스트잇 두께 (작은 랭크로 GPU 메모리 절약)
+    lora_alpha=16,
+    target_modules=["q_proj", "v_proj"],
+    lora_dropout=0.05,
+    bias="none",
+    task_type="CAUSAL_LM"
+)
+
+company_custom_model = get_peft_model(base_model, lora_config)
+print("\\n[Step 3] LoRA 포스트잇 가성비 튜닝 구조 세팅 완료:")
+company_custom_model.print_trainable_parameters()  # 전체 중 약 0.1%만 학습!
+
+# --------------------------------------------------------
+# Step 4 & 5. 모의고사 채점(환각/보안 검사) & 사내 배포(Serving)
+# --------------------------------------------------------
+print("\\n[Step 4] 사내 규정 QA 테스트셋으로 환각 및 보안 규정 위반 모의고사 검증")
+print("[Step 5] vLLM / FastAPI 기반으로 사내 메신저 및 인트라넷에 안전 배포 완료!")
+`,
+          summary: 'Hugging Face 기본 모델 선택부터 사내 지식 그래프 데이터셋 구축, LoRA 포스트잇 가성비 튜닝, 안전성 검증 및 사내 서빙까지 이어지는 기업 전용 프라이빗 AI 5단계 핵심 파이프라인입니다.'
         }
       ]
     },
