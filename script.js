@@ -576,12 +576,302 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
   if (!container) return;
 
-  // 전체 날짜별 학습 데이터 (10/02, 10/01, 09/30, 09/29, 09/28_pm, 09/28, 09/24, 09/23, 09/22)
+  // 전체 날짜별 학습 데이터 (10/06, 10/04, 10/02, 10/01, 09/30, 09/29, 09/28_pm, 09/28, 09/24, 09/23, 09/22)
   const logsData = [
+    {
+      id: '1006',
+      date: '10/06 (화)',
+      badge: 'LATEST',
+      title: '🚀 머신러닝 vs 딥러닝 완성 · AI 3대 트렌드(RAG/파인튜닝) · 피지컬AI & 지도학습 4단계',
+      subtitle: '정형·비정형 데이터별 AI 모델(XGBoost vs Transformer), 과대·과소적합 극복, 기업의 AI 활용 3트렌드, 5대 AI 프로젝트 직군, 지도학습 4단계 & Pandas 실습',
+      tags: ['1006실무', '머신러닝', '딥러닝', 'CNN', '비정형데이터', '의사결정나무', '대출승인분류', '피지컬AI', 'RAG_파인튜닝', '지도학습4단계', '판다스기초', '펑션콜_벡터DB', '과대적합_Overfitting', '실습'],
+      sections: [
+        {
+          secTitle: '🧠 1. 머신러닝 vs 딥러닝 개념 요약 & 3대 학습 방식',
+          icon: '🧠',
+          desc: '사람이 특징(Feature) 힌트를 주는 머신러닝과 뇌신경망으로 스스로 특징을 뽑아내는 딥러닝, 그리고 3가지 학습 방법 완벽 비교',
+          cards: [
+            {
+              title: '🤖 머신러닝 (Machine Learning)',
+              detail: '• 컴퓨터에게 문제(원인)와 정답을 주고 숨겨진 규칙을 스스로 찾게 하는 기술.<br>• <strong>특징 추출(Feature Engineering):</strong> 사진에서 개/고양이를 구분할 때 사람이 직접 <i>"얼굴형, 눈 크기, 다리 개수"</i> 같은 힌트를 줘야 합니다.'
+            },
+            {
+              title: '🧬 딥러닝 (Deep Learning)',
+              detail: '• 머신러닝의 끝판왕으로 인간 뇌의 신경세포(뉴런)를 모방한 <strong>인공신경망(ANN)</strong> 기반.<br>• 사람이 일일이 힌트를 주지 않아도 대규모 데이터를 쏟아부으면 AI가 스스로 특징을 추출 (이미지/자연어 처리에 압도적).'
+            },
+            {
+              title: '📊 머신러닝의 3가지 학습 방법',
+              detail: '• <strong>1. 지도 학습(Supervised):</strong> 정답지(레이블)를 주고 가르침<br>&nbsp;&nbsp;- <b>회귀(Regression):</b> 판매량, 집값 등 연속된 숫자 예측<br>&nbsp;&nbsp;- <b>분류(Classification):</b> 개/고양이 판별, 품종 맞추기 등 객관식 범주 선택<br>• <strong>2. 비지도 학습(Unsupervised):</strong> 정답 없이 데이터만 주고 학습<br>&nbsp;&nbsp;- <b>군집화(Clustering):</b> 고객 타겟팅, 추천 시스템<br>&nbsp;&nbsp;- <b>차원 축소:</b> 복잡한 데이터를 핵심만 남겨 압축<br>• <strong>3. 강화 학습(Reinforcement):</strong> 보상과 벌점으로 게임하듯 최적 행동 터득 (알파고, 자율주행)'
+            },
+            {
+              title: '🧠 딥러닝 핵심 3대 신경망 & 훈련 사이클',
+              detail: '• <strong>DNN (심층 신경망):</strong> 엑셀 표 데이터의 기본 뼈대<br>• <strong>CNN (합성곱 신경망):</strong> 돋보기로 윤곽선을 찾는 이미지/영상 스페셜리스트<br>• <strong>RNN (순환 신경망):</strong> 시간 흐름과 순서를 기억하는 언어/주가/음악 처리 모델<br>• <strong>훈련 3단계:</strong> <code>fit()</code>(반복 학습) → <code>evaluate()</code>(시험지 채점) → <code>predict()</code>(실전 예측)'
+            }
+          ]
+        },
+        {
+          secTitle: '📊 2. 엑셀 표와 이미지를 다루는 AI 모델 & 과대적합/과소적합 극복',
+          icon: '📊',
+          desc: '정형 표 데이터의 제왕 트리 모델 vs 비정형 딥러닝 모델의 영역 구분과 모델 최적화 치트키',
+          cards: [
+            {
+              title: '📈 엑셀 표 데이터 (정형 머신러닝)',
+              detail: '• <strong>의사결정나무:</strong> 스무고개 방식으로 참/거짓 분기<br>• <strong>랜덤 포레스트:</strong> 나무 수십 개의 결과를 취합하는 전문가 다수결 투표<br>• <strong>XGBoost / LightGBM:</strong> 이전 오차를 집중 보완하는 오답 노트 마스터 (현업 정형 데이터 1위)'
+            },
+            {
+              title: '🖼️ 사진과 글자 (비정형 딥러닝)',
+              detail: '• <strong>CNN:</strong> 돋보기 필터로 윤곽선과 시각 패턴 추출<br>• <strong>RNN / LSTM:</strong> 문맥과 시계열 순서를 기억<br>• <strong>트랜스포머 (Transformer):</strong> 문맥 전체의 관계를 한 번에 파악하는 최신 거대 언어 모델의 뇌 구조 (ChatGPT의 기반)'
+            },
+            {
+              title: '⚠️ 과대적합 (Overfitting) 해결책',
+              detail: '• <strong>상태:</strong> 모의고사는 100점인데 수능은 50점 (사소한 노이즈까지 통째로 외움)<br>• <strong>해결책:</strong> 너무 오래 학습하기 전 멈추는 <b>조기 종료(Early Stopping)</b>, 신경망 일부를 쉬게 하는 <b>드롭아웃(Dropout)</b>으로 응용력 향상'
+            },
+            {
+              title: '📉 과소적합 (Underfitting) 해결책',
+              detail: '• <strong>상태:</strong> 공부를 하다 만 수포자 (뇌 구조가 너무 단순하거나 학습량 부족)<br>• <strong>해결책:</strong> 학습 횟수(Epoch)를 늘리거나 신경망 층(Layer)을 더 깊게 쌓기'
+            }
+          ]
+        },
+        {
+          secTitle: '💼 3. 요즘 기업들이 AI를 써먹는 3가지 트렌드 (월세·오픈북·직무교육)',
+          icon: '💼',
+          desc: '수십억을 들여 바닥부터 만들지 않고 검증된 파운데이션 모델을 똑똑하게 빌려 쓰는 실무 3대 방식',
+          cards: [
+            {
+              title: '🌐 1. API 호출 ("천재의 뇌를 월세 내고 빌려 쓰기")',
+              detail: '• OpenAI, Google 등의 초거대 AI에 인터넷(API)으로 질문하고 답변 건당 과금(종량제).<br>• 인프라 구축 없이 가장 빠르고 저렴하게 사내 챗봇, 자동 요약, 번역 서비스 구축.'
+            },
+            {
+              title: '📚 2. RAG (검색 증강 생성) ("천재에게 기밀문서 쥐어주고 오픈북 테스트")',
+              detail: '• 외부 AI는 우리 회사 규정이나 매뉴얼을 모르므로, 질문 시 사내 DB에서 관련 문서를 검색해 프롬프트에 첨부.<br>• <strong>장점:</strong> 모델 재학습 없이 <b>환각(거짓말) 완벽 방지</b>, 최신 정보 즉시 반영 (기업 고객 CS/법률 1위 선호 방식).'
+            },
+            {
+              title: '🎯 3. 파인튜닝 (미세조정) ("천재에게 직장인 실무 직무 교육 시키기")',
+              detail: '• 이미 똑똑한 기본 모델에 회사의 특화 말투, 전문 용어 데이터셋을 추가 학습시켜 가중치를 미세 개조.<br>• 프롬프트에 길게 설명하지 않아도 우리 회사 서식과 업무 규칙을 찰떡같이 준수.'
+            }
+          ]
+        },
+        {
+          secTitle: '🤖 4. 피지컬 AI · 모델 계층(Base vs Chat) · 5대 프로젝트 직군',
+          icon: '🤖',
+          desc: '화면을 뚫고 나온 AI, 에이전트 핵심 도구(펑션 콜 & 벡터 DB), 최고급 레스토랑에 비유한 5대 AI 전문 직군',
+          cards: [
+            {
+              title: '🦾 피지컬 AI (Physical AI)',
+              detail: '• 화면 속 소프트웨어를 넘어 로봇, 자동차, 드론 등 <b>물리적 강철 몸통</b>을 얻은 AI.<br>• <strong>예시:</strong> 도로를 보고 스스로 주행하는 로보택시, 스스로 걸음마와 부품 조립을 배우는 테슬라 옵티머스 휴머노이드.'
+            },
+            {
+              title: '🧠 Base Model vs Chat/Instruct Model',
+              detail: '• <strong>기본 엔진(Base Model):</strong> 방대한 글을 읽었지만 눈치 없는 앵무새 ("사과가 뭐야?" 물으면 "바나나가 뭐야?"로 문장만 이어붙임)<br>• <strong>실무용 튜닝(Chat/Instruct):</strong> 대화 족집게 과외(파인튜닝)를 거쳐 사람처럼 친절하고 유용하게 대답하는 ChatGPT'
+            },
+            {
+              title: '🛠️ 에이전트 필수 키워드 (펑션 콜 & 벡터 DB)',
+              detail: '• <strong>펑션 콜 (Function Call):</strong> AI에게 계산기, 날씨 API, DB 쿼리 버튼을 쥐어줘 필요할 때 스스로 누르게 하는 기술.<br>• <strong>벡터 DB (Vector DB):</strong> 글자 일치가 아닌 <b>\'의미(뜻)\'</b>을 좌표로 변환해 찾는 도서관 ("원숭이" 검색 시 관련 깊은 "바나나" 추출).'
+            },
+            {
+              title: '🍽️ AI 프로젝트 5대 직군 (최고급 레스토랑 비유)',
+              detail: '• <strong>데이터 엔지니어:</strong> 식재료를 실어나르는 물류 기사 (데이터 수집/창고 구축)<br>• <strong>데이터 분석가:</strong> 썩은 양파를 걸러내는 주방 보조 (노이즈 정제/피처 발굴)<br>• <strong>AI/ML 엔지니어:</strong> 불 조절로 요리하는 메인 셰프 (신경망 구조 설계 및 학습)<br>• <strong>프롬프트 엔지니어:</strong> AI계의 강형욱 조련사 (환각 방지, 최적의 질의/말투 튜닝)<br>• <strong>백엔드/MLOps:</strong> 서버를 지키는 수문장 (동시 접속 방어, 안정적 서빙)'
+            }
+          ]
+        },
+        {
+          secTitle: '🧪 5. 머신러닝 기초 · 지도학습 4단계 & 판다스(Pandas) 기초 실습',
+          practiceTitle: '지도학습 4단계 & Pandas 데이터 핸들링 Lab',
+          icon: '🧪',
+          isPractice: true,
+          desc: '레모네이드 가게 예시로 배우는 독립/종속변수와 지도학습 4단계 워크플로우, 그리고 구글 코랩 & 판다스 삼총사 실습 코드',
+          cards: [
+            {
+              title: '🗺️ 지도학습 4단계 빅픽처 (레모네이드 가게)',
+              detail: '• <strong>1단계 과거 데이터 준비:</strong> 독립변수(원인: 온도 X)와 종속변수(결과: 판매량 y) 분리<br>• <strong>2단계 모델 구조 만들기:</strong> 온도를 넣으면 판매량을 뱉는 예측 기계 틀 설계<br>• <strong>3단계 모델 학습(Fit):</strong> 컴퓨터가 "온도 × 2 = 판매량이네!" 규칙을 스스로 깨우침<br>• <strong>4단계 모델 이용(Predict):</strong> 내일 예보(15도)를 넣으면 예상 판매량(30개) 척척 예측!'
+            },
+            {
+              title: '🐼 구글 코랩(Colab) & 판다스(Pandas) 핵심 도구',
+              detail: '• <strong>구글 코랩:</strong> 설치 없이 웹브라우저에서 GPU/파이썬을 바로 돌리는 클라우드 환경<br>• <strong>판다스:</strong> 엑셀 표(CSV) 데이터를 파이썬에서 자유자재로 다루는 마법의 라이브러리'
+            }
+          ],
+          code: `# ========================================================
+# 10/06 머신러닝 지도학습 4단계 & Pandas 기초 실습 코드
+# ========================================================
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+# --------------------------------------------------------
+# [실습 1] 판다스 삼총사: 파일 불러오기, 크기 확인, 미리보기
+# --------------------------------------------------------
+# 1. 파일 불러오기: CSV 데이터를 표(DataFrame)로 로드
+data = pd.read_csv('lemonade.csv')
+
+# 2. 데이터 크기 확인: 몇 행 몇 열인지 파악
+print("데이터 크기 (행, 열):", data.shape)  # 예: (100, 2)
+
+# 3. 맛보기 미리보기: 상위 5개 데이터 확인
+print("상위 5개 데이터:")
+print(data.head())
+
+# --------------------------------------------------------
+# [실습 2] 지도학습 4단계 파이프라인
+# --------------------------------------------------------
+# 1단계: 과거 데이터 준비 (독립변수 X, 종속변수 y)
+X = data[['온도']]    # 원인 (독립변수)
+y = data['판매량']     # 결과 (종속변수)
+
+# 2단계: 모델의 구조 만들기 (회귀 모델 뼈대 설계)
+model = LinearRegression()
+
+# 3단계: 데이터로 모델 학습(Fit)시키기 - 규칙 스스로 깨우치기
+model.fit(X, y)
+print("학습 완료! (가중치 기울기 W:", model.coef_[0], ", 절편 b:", model.intercept_, ")")
+
+# 4단계: 모델 이용하기 (Predict) - 내일 온도로 판매량 예측
+tomorrow_temp = pd.DataFrame({'온도': [25, 28, 30]})
+prediction = model.predict(tomorrow_temp)
+
+for temp, pred in zip(tomorrow_temp['온도'], prediction):
+    print(f"🌡️ 기온 {temp}도 일 때 예상 레모네이드 판매량: {int(round(pred))}잔")
+`,
+          summary: 'pd.read_csv, .shape, .head() 삼총사로 데이터를 탐색하고, X(독립변수)와 y(종속변수)를 분리하여 fit() 학습 후 predict()로 미래를 예측하는 지도학습 표준 파이프라인입니다.'
+        },
+        {
+          secTitle: '🌲 6. [실습 Lab] 의사결정나무(Decision Tree) 기반 대출 승인 분류 실습',
+          practiceTitle: '스무고개 의사결정나무(DecisionTreeClassifier) 대출 승인 분류 Lab',
+          icon: '🌲',
+          isPractice: true,
+          desc: '나이와 연봉(원인 X)으로 대출 승인 여부(정답 Y, 0/1)를 예측하는 3단계 머신러닝 분류(Classification) 파이프라인 실전 실습',
+          cards: [
+            {
+              title: '📑 # 1. 데이터 준비 (원인 X vs 정답 Y)',
+              detail: '• <strong>독립변수 (X_원인):</strong> 나이와 연봉 데이터를 엑셀 표(DataFrame) 형태로 준비.<br>• <strong>종속변수 (Y_정답):</strong> 대출 승인 여부(0: 거절, 1: 승인) 정답지 라벨 세팅.'
+            },
+            {
+              title: '🧠 # 2. 모델 학습 (스무고개 기계에 .fit)',
+              detail: '• <strong>DecisionTreeClassifier:</strong> "스무고개 하듯 조건을 나누어 판단하는 기계" 생성.<br>• <code>model.fit(X, Y)</code>로 준비한 원인과 정답 데이터를 주며 규칙을 스스로 깨우치도록 피팅(학습).'
+            },
+            {
+              title: '🚀 # 3. 예측 및 적용 (.predict로 신규 고객 판별)',
+              detail: '• 공부가 끝난 기계에 새로운 고객 정보(예: 나이 35세, 연봉 5000)를 <code>model.predict(new)</code>로 전달.<br>• 과거 학습 패턴을 바탕으로 <i>"이 고객은 대출이 승인될까, 거절될까?"</i> 척척 판별.'
+            }
+          ],
+          code: `# ========================================================
+# [실습] 의사결정나무(DecisionTree) 대출 승인 분류 모델
+# ========================================================
+import pandas as pd
+from sklearn.tree import DecisionTreeClassifier
+
+# --------------------------------------------------------
+# 1단계: 데이터 준비 (# 1)
+# (나이와 연봉: X_원인, 대출 승인 여부 0/1: Y_정답)
+# --------------------------------------------------------
+data = pd.DataFrame({
+    '나이': [25, 30, 45, 22, 50, 38],
+    '연봉': [3000, 4500, 8000, 2400, 9500, 5200],
+    '승인여부': [0, 1, 1, 0, 1, 1]  # 0: 거절, 1: 승인
+})
+
+X_원인 = data[['나이', '연봉']]   # 원인 (독립변수)
+Y_정답 = data['승인여부']        # 정답 (종속변수)
+
+print("--- [1단계] 준비된 학습 데이터 표 ---")
+print(data)
+
+# --------------------------------------------------------
+# 2단계: 모델 학습 (# 2)
+# (DecisionTreeClassifier "스무고개 판단 기계"에 .fit)
+# --------------------------------------------------------
+model = DecisionTreeClassifier(random_state=42)
+model.fit(X_원인, Y_정답)
+print("\\n--- [2단계] 의사결정나무 모델 학습(.fit) 완료! ---")
+
+# --------------------------------------------------------
+# 3단계: 예측 및 적용 (# 3)
+# (신규 고객 정보를 .predict로 전달하여 승인/거절 판별)
+# --------------------------------------------------------
+new_customer = pd.DataFrame({
+    '나이': [35, 23],
+    '연봉': [5000, 2100]
+})
+
+predictions = model.predict(new_customer)
+
+print("\\n--- [3단계] 신규 고객 대출 심사 결과 (.predict) ---")
+for i, (idx, row) in enumerate(new_customer.iterrows()):
+    result_text = "✅ 대출 승인(1)" if predictions[i] == 1 else "❌ 대출 거절(0)"
+    print(f"고객 {i+1} [나이: {row['나이']}세, 연봉: {row['연봉']}만원] → 판정: {result_text}")
+`,
+          summary: 'DecisionTreeClassifier(스무고개)를 활용해 원인(나이, 연봉)과 정답(승인 여부 0/1)으로 규칙을 학습(.fit)하고, 신규 고객 데이터를 .predict()하여 승인/거절을 판별하는 분류(Classification) 실전 파이프라인입니다.'
+        },
+        {
+          secTitle: '🔍 7. [딥러닝 Lab] CNN(합성곱 신경망): 돋보기 든 명탐정과 Keras 비정형 이미지 분류',
+          practiceTitle: 'CNN 돋보기 이미지 분류 & Keras 코드 한눈에 읽기 Lab',
+          icon: '🔍',
+          isPractice: true,
+          desc: '표 데이터를 넘어선 사진·목소리·글 비정형 데이터 정복! 돋보기(Conv2D)와 요약(MaxPool2D)으로 옷/사물을 판별하는 실전 Keras 딥러닝',
+          cards: [
+            {
+              title: '📸 1. 딥러닝이 잘하는 것: 비정형 데이터 (사진, 목소리, 글)',
+              detail: '• 엑셀 같은 정형 숫자 데이터와 달리 세상에는 사진, 목소리, 문장처럼 규칙이 복잡한 데이터가 훨씬 많습니다.<br>• 사람이 일일이 규칙을 짤 수 없는 비정형 데이터에서 컴퓨터가 스스로 고차원 패턴을 찾도록 학습시키는 핵심 기술이 <strong>딥러닝</strong>입니다.'
+            },
+            {
+              title: '🔍 2. CNN (합성곱 신경망): 돋보기 든 명탐정',
+              detail: '• <strong>원리:</strong> 사진을 통째로 주면 어디가 눈/코인지 모릅니다. 그래서 작은 <b>돋보기(필터/Kernel)</b>로 구석구석 훑으며 선, 윤곽선, 무늬 같은 특징을 찾아냅니다.<br>• <strong>활용:</strong> 자율주행차가 보행자와 신호등을 감지하는 눈의 역할을 수행합니다.'
+            },
+            {
+              title: '💡 3. 복잡해 보이는 Keras 코드의 실체 (치트키)',
+              detail: '• <code>Conv2D / MaxPool2D</code>: <i>"돋보기로 특징 싹 훑고, 핵심만 남기고 크기를 확 줄여서 요약해!"</i><br>• <code>Flatten / Dense</code>: <i>"요약된 조각들을 한 줄로 쫙 펴서, 이게 어떤 옷(카테고리)인지 최종 정답을 맞춰봐!"</i><br>• <code>model.fit(epochs=5)</code>: <i>"사진이랑 정답지 줄 테니까 5번 반복해서 열심히 공부(훈련)해!"</i>'
+            }
+          ],
+          code: `# ========================================================
+# [실습] TensorFlow Keras 기반 CNN 의류 이미지 분류 모델
+# (돋보기 Conv2D -> 요약 MaxPool2D -> 1열 펴기 Flatten -> 분류 Dense)
+# ========================================================
+import tensorflow as tf
+from tensorflow.keras import layers, models
+
+# --------------------------------------------------------
+# 1. 돋보기 든 명탐정 CNN 모델 구조 조립
+# --------------------------------------------------------
+model = models.Sequential([
+    # [Conv2D / MaxPool2D]: 돋보기로 윤곽선 훑고, 핵심만 요약해!
+    layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
+    layers.MaxPooling2D((2, 2)),
+
+    layers.Conv2D(64, (3, 3), activation='relu'),
+    layers.MaxPooling2D((2, 2)),
+
+    # [Flatten]: 2차원 이미지 조각들을 1줄로 쫙 펴기!
+    layers.Flatten(),
+
+    # [Dense]: 요약 조각을 조합해 어떤 옷인지 10개 보기 중 최종 맞추기!
+    layers.Dense(64, activation='relu'),
+    layers.Dense(10, activation='softmax')  # 의류 10개 클래스 확률 출력
+])
+
+# --------------------------------------------------------
+# 2. 컴파일: 채점관(Loss)과 내비게이션(Optimizer) 규칙 설정
+# --------------------------------------------------------
+model.compile(
+    optimizer='adam',
+    loss='sparse_categorical_crossentropy',
+    metrics=['accuracy']
+)
+print("--- [CNN 모델 구조 요약] ---")
+model.summary()
+
+# --------------------------------------------------------
+# 3. model.fit(): 사진과 정답지로 5번 반복해서 열공(훈련)해!
+# --------------------------------------------------------
+# (X_train: 의류 사진 데이터, y_train: 의류 종류 정답 번호)
+# model.fit(X_train, y_train, epochs=5, batch_size=64)
+print("\\n[알림] model.fit(epochs=5) 실행 시 5회 반복 학습을 통해 이미지 인식률이 점진적으로 향상됩니다!")
+`,
+          summary: 'Conv2D(돋보기)와 MaxPool2D(크기 압축)로 시각 특징을 추출하고, Flatten/Dense로 1열 정렬 후 분류하며, model.fit(epochs=5)로 5회 반복 학습하는 Keras 딥러닝 이미지 처리 표준 파이프라인입니다.'
+        }
+      ]
+    },
     {
       id: '1004',
       date: '10/04 (일)',
-      badge: 'LATEST',
+      badge: '10/04',
       title: '🧠 룰 기반 vs 머신러닝 vs 딥러닝 완벽 비교 & 테크 PM 필수 AI 파이프라인 가이드',
       subtitle: '지도학습/비지도학습 분류·회귀·군집, ML 핵심 5대 용어, 딥러닝 활성화함수, SQL+Python+JSON 3대 결합 파이프라인, SLM 온디바이스 & 파인튜닝 실무 전략',
       tags: ['1004실무', '머신러닝', '딥러닝', '지도학습', '비지도학습', '과적합_Overfitting', '활성화함수', 'SQL_Python_JSON', '파이프라인', 'SLM', '파인튜닝', 'PM아키텍처', '실습'],
@@ -3018,7 +3308,7 @@ print(response.choices[0].message.content)
 
   // 현재 필터 상태
   let currentFilter = {
-    date: '1002',
+    date: '1006',
     keyword: '',
     tag: 'all'
   };
