@@ -576,12 +576,255 @@ const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
   if (!container) return;
 
-  // 전체 날짜별 학습 데이터 (10/06, 10/04, 10/02, 10/01, 09/30, 09/29, 09/28_pm, 09/28, 09/24, 09/23, 09/22)
+  // 전체 날짜별 학습 데이터 (10/07, 10/06, 10/04, 10/02, 10/01, 09/30, 09/29, 09/28_pm, 09/28, 09/24, 09/23, 09/22)
   const logsData = [
+    {
+      id: '1007',
+      date: '10/07 (수)',
+      badge: 'LATEST',
+      title: '📐 AI 수학·통계의 눈(내적·공분산·결정계수 R²) · 딥러닝 활성화함수 5대장 & 판다스 데이터 엔지니어링',
+      subtitle: '관계를 보는 눈(내적/공분산/상관계수 r), 산포도(분산/표준편차), 최소자승법(OLS)·회귀계수, 모델 채점표(SST/SSE/R² 0.764), 경사하강법·크로스엔트로피, 5대 활성화함수(ReLU/Sigmoid/Softmax/Swish/Linear), 독립변수·종속변수 분리, 범주형 분류·히든레이어·이미지 텐서 차원',
+      tags: ['1007실무', '내적_공분산_상관계수', '결정계수_R2', '최소자승법_OLS', '경사하강법', '활성화함수5대장', 'ReLU_Softmax', '독립_종속변수', '판다스4대기술', '원핫인코딩', '히든레이어', '이미지_텐서_Shape', '머신러닝', '딥러닝', '실습'],
+      sections: [
+        {
+          secTitle: '🤝 1. 관계를 보는 눈: 내적 (Dot Product) · 공분산 (Covariance) · 상관계수 (r)',
+          icon: '🤝',
+          desc: '데이터 속 두 변수가 얼마나 어울리고 함께 움직이는지 측정하는 3대 수학·통계 지표의 직관적 원리입니다.',
+          cards: [
+            {
+              title: '🎯 내적 (Dot Product) : "취향 궁합 점수"',
+              detail: '• <strong>한 줄 비유:</strong> 두 사람의 취향이 얼마나 겹치는지 보여주는 <strong>\'궁합 점수\'</strong><br>• <strong>핵심 원리:</strong> 화살표(벡터) 둘이 같은 쪽을 바라보면 큰 양수(+), 딴청 피우면(직교) 0, 정반대로 가면 음수(-).<br>• <strong>AI 실무 활용:</strong> 유튜브·넷플릭스 AI 추천 알고리즘에서 "이 사용자와 저 영상 콘텐츠 벡터가 얼마나 잘 맞나" 유사도를 실시간 계산할 때 핵심으로 쓰입니다.'
+            },
+            {
+              title: '📈 공분산 (Covariance) : "동행 여부"',
+              detail: '• <strong>한 줄 비유:</strong> 둘이 같이 움직이는지 따로 노는지 보는 <strong>\'동행 여부\'</strong><br>• <strong>핵심 원리:</strong> 기온 오르면 아이스크림 판매도 오른다(+), 게임 시간 늘면 성적 떨어진다(-).<br>• <strong>한계:</strong> 숫자에 단위(cm, 원, kg 등)가 그대로 붙어 있어 두 그룹 간의 상대적 크기 비교가 애매합니다.'
+            },
+            {
+              title: '🔗 상관계수 (r) : "커플 끈끈이 지표 (-1 ~ +1)"',
+              detail: '• <strong>한 줄 비유:</strong> 공분산에서 단위를 싹 빼고 -1부터 +1까지 표준화한 <strong>\'커플 끈끈이 지표\'</strong><br>• <strong>핵심 해석:</strong><br>&nbsp;&nbsp;• <strong>+1에 가까움:</strong> "영혼의 단짝" (한쪽이 오르면 다른 쪽도 칼같이 함께 상승)<br>&nbsp;&nbsp;• <strong>-1에 가까움:</strong> "상극" (하나는 오르고 하나는 반대로 떨어짐)<br>&nbsp;&nbsp;• <strong>0 근처:</strong> "남남" (서로 아무런 선형 관계가 없음)'
+            }
+          ],
+          table: {
+            headers: ['지표명', '한 줄 직관 비유', '값의 범위 / 단위', '머신러닝 & AI 실무 활용'],
+            rows: [
+              ['내적 (Dot Product)', '취향 궁합 점수', '크기 무제한 (단위 영향 있음)', '임베딩 벡터 유사도, 코사인 유사도, 추천 알고리즘'],
+              ['공분산 (Covariance)', '둘의 동행 여부 (+/-)', '단위 유지 (비교 불가)', '다변량 데이터 분포 확인, 주성분 분석(PCA) 공분산 행렬'],
+              ['상관계수 (r)', '단위 뺀 커플 끈끈이', '-1.0 ~ +1.0 (단위 없음)', '피처 엔지니어링, 다중공선성(VIF) 검증, 타깃 연관 피처 선별']
+            ]
+          },
+          summary: '내적은 추천 AI의 방향 일치도, 공분산은 동행 방향(+/-), 상관계수(r)는 단위를 정규화한 절대적 관계 강도(-1~+1)를 나타냅니다.'
+        },
+        {
+          secTitle: '📊 2. 흩어진 정도를 보는 눈: 모분산 vs 표본분산 · 표준편차 (σ)',
+          icon: '📊',
+          desc: '데이터들이 평균 주변에 옹기종기 모여 있는지, 제각각 멀리 퍼져 있는지 산포도를 측정하는 핵심 원리입니다.',
+          cards: [
+            {
+              title: '🏫 모분산 vs 표본분산',
+              detail: '• <strong>모분산:</strong> 전교생 전체의 들쭉날쭉함 (모집단 전체를 전수 조사한 실제 분산)<br>• <strong>표본분산:</strong> 바빠서 1반 30명만 뽑아 조사한 들쭉날쭉함 (자유도 n-1 보정 적용)<br>• <strong>본질:</strong> 데이터들이 평균 근처에 옹기종기 모여 있는지, 제각각 멀리 흩어져 퍼져 있는지를 잰 값입니다.'
+            },
+            {
+              title: '📏 표준편차 (σ) : "원래 단위로 되돌린 오차 범위"',
+              detail: '• <strong>한 줄 비유:</strong> 분산(제곱값)에 루트(√)를 씌워 <strong>원래 단위(cm, 점수, 원)로 되돌린 오차 범위</strong><br>• <strong>직관적 체감:</strong> "우리 학교 평균 키 170cm, 표준편차 5cm"라고 하면 <i>"아, 학생 대다수가 165~175cm 사이에 있겠구나!"</i> 하고 직관적으로 와닿게 만듭니다.'
+            }
+          ],
+          summary: '분산은 제곱된 오차의 평균이고, 표준편차(σ)는 거기에 루트(√)를 씌워 우리가 이해할 수 있는 본래 단위(cm, 원)로 복원한 실질적 오차 범위입니다.'
+        },
+        {
+          secTitle: '🎯 3. 선 하나 잘 긋기 & 모델 채점표: 최소자승법 (OLS) · 회귀계수 (Weight) · 결정계수 (R²)',
+          icon: '🎯',
+          desc: '흩어진 데이터 사이로 가장 양심적인 타협의 중심선을 긋고, 모델의 예측 설명력을 객관적으로 채점하는 방법입니다.',
+          cards: [
+            {
+              title: '📏 최소자승법 (OLS) : "타협의 중심선 긋기"',
+              detail: '• <strong>한 줄 비유:</strong> 제멋대로 흩어진 점들 사이를 가장 양심적으로 통과하는 <strong>\'타협의 중심선 긋기\'</strong><br>• <strong>수학적 원리:</strong> 실제 점들과 직선 사이의 수직 거리(잔차 오차)를 제곱해서 싹 다 더했을 때(SSE), 그 합이 가장 작아지도록 기울기와 절편을 맞추는 최적화 공식입니다.'
+            },
+            {
+              title: '⚖️ 회귀 계수 (Weight / 가중치) : "레버리지 배율"',
+              detail: '• <strong>한 줄 비유:</strong> 원인이 한 걸음 갈 때 결과가 몇 걸음 뛰는지 알려주는 <strong>\'레버리지 배율\'</strong><br>• <strong>실제 예시:</strong><br>&nbsp;&nbsp;• 공부 시간 계수가 +5면 ➔ <i>"1시간 더 공부할 때마다 5점 상승"</i><br>&nbsp;&nbsp;• 보스턴 집값 방 개수(RM) 계수가 +3.5면 ➔ <i>"방 1개 늘어날 때마다 집값 3,500달러 상승"</i>'
+            },
+            {
+              title: '📝 모델 채점표 : SST · SSE · 결정계수 (R² = 0.764)',
+              detail: '• <strong>SST (총 변동량):</strong> "원래 세상 데이터가 이만큼이나 제멋대로 들쭉날쭉했습니다." (시험 전체 난이도)<br>• <strong>SSE (남은 오차):</strong> "선 하나 그어봤는데도 여전히 못 맞히고 빗나간 찌꺼기 오차입니다."<br>• <strong>결정계수 (R², 0~1):</strong> 모델이 시험에서 맞힌 <strong>\'정답률(설명력 백분율)\'</strong><br>• <strong>💡 보스턴 집값 대시보드 R² 0.764의 의미:</strong> "보스턴 집값이 오르내리는 원인 중 <strong>76.4%는 우리가 넣은 독립변수들로 완벽하게 설명된다</strong>"는 뜻으로, 투자자나 임원진에게 모델의 신뢰도를 입증하는 핵심 지표입니다!'
+            }
+          ],
+          summary: '최소자승법(OLS)은 오차 제곱합을 최소화하는 선을 긋고, 회귀계수는 원인에 따른 결과의 배율이며, R²(결정계수)는 모델이 세상의 변동성을 몇 % 설명해 냈는지 보여주는 성적표입니다.'
+        },
+        {
+          secTitle: '📉 4. AI의 학습 방식: 경사하강법 (Gradient Descent) · 소프트맥스 · 크로스엔트로피',
+          icon: '📉',
+          desc: '오차를 줄여가며 최적의 가중치를 찾는 경사하강법과 분류 문제의 전용 확률 변환기 및 오답 채점기 원리입니다.',
+          cards: [
+            {
+              title: '⛰️ 경사하강법 (Gradient Descent)',
+              detail: '• <strong>한 줄 비유:</strong> 짙은 안개 속에서 눈 가리고 발바닥 감각(기울기)만으로 <strong>가장 낮은 골짜기(오차 Loss 0)를 찾아 더듬더듬 내려가는 과정</strong><br>• <strong>실무 코드 매핑:</strong> <code>model.fit(epochs=1000)</code>이 바로 이 짓을 1,000번 반복하면서 오차가 가장 적은 최적의 가중치 W를 스스로 찾아가는 학습 과정입니다.'
+            },
+            {
+              title: '🥧 소프트맥스 (Softmax) : "확률(%) 변환기"',
+              detail: '• <strong>역할:</strong> 복잡한 실수 출력값들을 <strong>퍼센트(%) 확률로 예쁘게 바꿔주는 변환기</strong><br>• <strong>예시:</strong> 모델 출력 점수를 세토사 86%, 버시컬러 14%, 버지니카 0%처럼 모든 클래스의 합이 100%(1.0)가 되도록 재가공합니다.'
+            },
+            {
+              title: '❌ 크로스엔트로피 (Cross-Entropy) : "오답 채점기"',
+              detail: '• <strong>역할:</strong> 답이 틀렸을 때 <strong>점수를 가혹하게 깎는 확률 시험 전용 채점기</strong><br>• <strong>특징:</strong> 정답 클래스의 예측 확률이 100%에 가까우면 손실이 0에 수렴하고, 오답을 확신할수록 무한대에 가까운 페널티를 주어 경사하강법이 빠르게 오차를 바로잡게 유도합니다.'
+            }
+          ]
+        },
+        {
+          isPractice: true,
+          practiceTitle: '딥러닝 5대 활성화 함수 (ReLU, Sigmoid, Softmax, Swish, Linear) 구현 실습',
+          secTitle: '⚡ 5. [실습] 딥러닝 5대 활성화 함수 (Activation Functions) 완벽 가이드 & 구현 코드',
+          icon: '⚡',
+          desc: '선형 연산을 비선형으로 꺾어 신경망에 지능을 부여하는 5대 필수 활성화 함수의 수식, 특징 및 NumPy & TensorFlow Keras 코드입니다.',
+          table: {
+            headers: ['활성화 함수', '수식', '핵심 특징', 'Keras 적용 위치 및 기획자 규칙'],
+            rows: [
+              ['1. ReLU', 'f(x) = max(0, x)', '은닉층 사실상 표준. 음수는 0 차단, 양수는 통과', '은닉층 기본값: Dense(64, activation="relu")'],
+              ['2. Sigmoid', 'f(x) = 1 / (1 + e^-x)', '입력값을 0~1 사이로 압축. 기울기 소실 주의', '이진 분류 출력층: Dense(1, activation="sigmoid")'],
+              ['3. Softmax', 'f(x_i) = e^x_i / Σ e^x_j', '전체 클래스 출력 합을 1(100%) 확률 분포로 변환', '다중 분류 출력층: Dense(3, activation="softmax")'],
+              ['4. Swish', 'f(x) = x · σ(x)', '구글 제안. ReLU보다 부드러운 곡선으로 깊은 망 성능 우수', '고성능 은닉층: Dense(64, activation="swish")'],
+              ['5. Linear (항등)', 'f(x) = x', '가공 없이 그대로 출력. 연속적인 숫자 예측', '회귀 예측 출력층: Dense(1, activation="linear") (생략 가능)']
+            ]
+          },
+          cards: [
+            {
+              title: '📌 기획자를 위한 한 줄 요약 선택 규칙',
+              detail: '• <strong>은닉층 (중간 계산):</strong> 고민 없이 <code>relu</code> 또는 <code>swish</code><br>• <strong>출력층 - 연속된 숫자 예측 (회귀, 집값, 판매량):</strong> <code>linear</code> (기본값, 생략 가능)<br>• <strong>출력층 - 둘 중 하나 맞히기 (이진 분류, 양품/불량, 이탈/유지):</strong> <code>sigmoid</code><br>• <strong>출력층 - 셋 이상 중 하나 맞히기 (다중 분류, 붓꽃 품종, 0~9 손글씨):</strong> <code>softmax</code>'
+            }
+          ],
+          code: `# ========================================================
+# ⚡ 딥러닝 5대 활성화 함수: NumPy 직접 구현 & TensorFlow Keras 매핑
+# ========================================================
+import numpy as np
+import tensorflow as tf
+
+# 1. ReLU (은닉층 표준: 음수는 0, 양수는 그대로)
+def relu(x):
+    return np.maximum(0, x)
+
+# 2. Sigmoid (이진 분류 출력층: 0 ~ 1 압축)
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+# 3. Softmax (다중 분류 출력층: 전체 합이 1인 확률 분포, 오버플로우 방지)
+def softmax(x):
+    exp_x = np.exp(x - np.max(x))
+    return exp_x / np.sum(exp_x, axis=-1, keepdims=True)
+
+# 4. Swish (구글 개발 고성능 활성화 함수: x * sigmoid(x))
+def swish(x):
+    return x / (1 + np.exp(-x))
+
+# 5. Linear (회귀 출력층: 항등 함수)
+def linear(x):
+    return x
+
+# --------------------------------------------------------
+# 🚀 TensorFlow Keras 신경망 모델 구성 실무 예시
+# --------------------------------------------------------
+# 붓꽃 품종 3종 다중 분류 신경망 아키텍처
+model = tf.keras.Sequential([
+    tf.keras.layers.Dense(64, activation='relu', input_shape=(4,)),  # 은닉층 1: ReLU
+    tf.keras.layers.Dense(32, activation='swish'),                  # 은닉층 2: Swish
+    tf.keras.layers.Dense(3, activation='softmax')                   # 출력층: 3개 품종 확률 Softmax
+])
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+print("✅ 신경망 모델 빌드 성공!")`,
+          summary: '은닉층은 ReLU/Swish로 비선형 특징을 학습시키고, 출력층은 문제 유형에 따라 회귀(Linear), 이진분류(Sigmoid), 다중분류(Softmax)를 선택합니다.'
+        },
+        {
+          secTitle: '💡 6. 데이터 기획의 첫걸음: 독립변수 (원인, X)와 종속변수 (결과, Y)의 관계 & 실무 예시',
+          icon: '💡',
+          desc: '원인이 되는 요인(X)과 우리가 예측하고자 하는 결과(Y)를 올바르게 정의하는 기획자 필수 프레임워크입니다.',
+          cards: [
+            {
+              title: '🍋 1. 레모네이드 장사 예시',
+              detail: '• <strong>예측하고 싶은 것 (종속변수, Y):</strong> 내일 레모네이드 <strong>판매량</strong><br>• <strong>영향을 주는 요인들 (독립변수, X):</strong> 그날의 <strong>온도, 습도, 요일(주말/평일), 주변 유동 인구</strong><br>• <strong>선정 이유:</strong> 온도가 높거나 주말일수록 판매량이 늘어나므로 판매량에 직접적인 원인이 되는 요인을 독립변수로 선정합니다.'
+            },
+            {
+              title: '🏠 2. 부동산 (집값) 예측 서비스 기획 시',
+              detail: '• <strong>예측하고 싶은 것 (종속변수, Y):</strong> 집값 (매매가, MEDV)<br>• <strong>영향을 주는 요인들 (독립변수, X):</strong> <strong>평형(면적), 방 개수(RM), 역세권과의 거리, 준공 연도(연식), 층수, 학군 범죄율(CRIM)</strong>'
+            },
+            {
+              title: '📱 3. 스타트업 / 앱 서비스 기획 시 (유저 이탈 예측)',
+              detail: '• <strong>예측하고 싶은 것 (종속변수, Y):</strong> 유저가 앱을 탈퇴할까 (이탈 여부 1 or 0)<br>• <strong>영향을 주는 요인들 (독립변수, X):</strong> <strong>최근 일주일 접속 횟수, 마지막 결제 후 경과일, CS 불만 접수 건수, 일평균 체류 시간</strong>'
+            }
+          ],
+          summary: '독립변수(X)는 원인(입력), 종속변수(Y)는 결과(타깃)이며, 서비스 기획의 핵심은 Y에 유의미한 영향을 주는 진짜 원인 피처 X를 발굴하는 것입니다.'
+        },
+        {
+          isPractice: true,
+          practiceTitle: '표 데이터를 다루는 4가지 핵심 기술 (Pandas 판다스) 실습',
+          secTitle: '🐼 7. [실습] 표 데이터를 다루는 4가지 핵심 기술 (Pandas 판다스 활용)',
+          icon: '🐼',
+          desc: '엑셀이나 CSV 표 파일을 파이썬으로 불러와 AI 모델이 학습할 수 있도록 전처리하는 4대 필수 기술입니다.',
+          cards: [
+            {
+              title: '📂 1. 파일 읽어오기 (pd.read_csv)',
+              detail: '• 인터넷이나 컴퓨터에 저장된 엑셀/CSV 표 파일(.csv)을 파이썬 데이터프레임으로 쏙 불러오는 작업입니다.<br>• <code>import pandas as pd; df = pd.read_csv("lemonade.csv")</code>'
+            },
+            {
+              title: '📐 2. 데이터 모양 확인하기 (.shape)',
+              detail: '• "이 데이터가 총 몇 줄(행)이고 몇 칸(열)으로 이루어져 있지?" 전체 규모를 확인합니다.<br>• 예: 레모네이드 데이터는 <code>(6, 2)</code> (6줄, 2칸)으로 형태 파악.'
+            },
+            {
+              title: '📋 3. 컬럼 이름 확인하기 (.columns)',
+              detail: '• 표의 맨 윗줄에 적힌 항목 이름들을 쫙 출력해 오타를 방지하고 변수 분리 준비.<br>• <code>print(df.columns)</code> ➔ <code>Index(["온도", "판매량"], dtype="object")</code>'
+            },
+            {
+              title: '⭐ 4. 독립변수와 종속변수 분리하기 (가장 중요)',
+              detail: '• 표 안에 섞여 있는 원인(독립변수 X)과 결과(종속변수 Y)를 쪼개서 따로 담는 작업.<br>• 레모네이드 예: <code>X = df[["온도"]]</code>, <code>Y = df[["판매량"]]</code><br>• <code>df.head()</code>로 맨 위 5개 샘플을 눈으로 최종 확인 검증!'
+            }
+          ],
+          code: `# ========================================================
+# 🐼 판다스 4대 핵심 기술 실습: 레모네이드 데이터 전처리
+# ========================================================
+import pandas as pd
+
+# 1. 파일 읽어오기
+file_path = "https://raw.githubusercontent.com/blackdew/tensorflow1/master/csv/lemonade.csv"
+lemon = pd.read_csv(file_path)
+
+# 2. 데이터 모양(Shape) 확인
+print("📊 데이터 모양 (행, 열):", lemon.shape)  # (6, 2)
+
+# 3. 컬럼 이름 확인
+print("📋 컬럼 목록:", lemon.columns)         # ['온도', '판매량']
+
+# 4. 독립변수(X)와 종속변수(Y) 분리
+X_independent = lemon[['온도']]
+Y_dependent = lemon[['판매량']]
+
+print("👉 독립변수 (원인 X):\\n", X_independent.head(3))
+print("👉 종속변수 (결과 Y):\\n", Y_dependent.head(3))`,
+          summary: 'read_csv(불러오기) ➔ .shape(행·열 파악) ➔ .columns(컬럼명 확인) ➔ X/Y 분리(독립·종속변수 타깃 분할)가 머신러닝 데이터 파이프라인의 표준 시작 루프입니다.'
+        },
+        {
+          secTitle: '🧬 8. 딥러닝 심화 3대 영역: 범주형 붓꽃 분류 · 히든 레이어 · 이미지 텐서 차원 (Shape)',
+          icon: '🧬',
+          desc: '단순 회귀를 넘어 다중 범주 분류, 깊은 다층 신경망(MLP), 그리고 이미지 데이터의 다차원 텐서 구조로 확장되는 3대 핵심 진화입니다.',
+          cards: [
+            {
+              title: '🌸 1. 범주형 데이터 분류 (붓꽃 품종 맞히기)',
+              detail: '• <strong>기존과의 차이:</strong> 판매량이나 집값 같은 <strong>연속 숫자</strong>가 아니라 "이 꽃이 세토사인가, 버시컬러인가?" 이름(범주)을 맞히는 <strong>분류(Classification)</strong> 문제입니다.<br>• <strong>핵심 기술:</strong> 컴퓨터는 글자를 이해하지 못하므로 <code>pd.get_dummies()</code>로 <strong>원핫 인코딩(One-hot Encoding)</strong>하여 [1, 0, 0] 형태의 숫자로 변환하고, 최종 결과를 확률(%)로 출력하는 <code>softmax</code>를 적용합니다.'
+            },
+            {
+              title: '🧠 2. 멀티 레이어 인공 신경망 (히든 레이어, Hidden Layer)',
+              detail: '• <strong>기존과의 차이:</strong> 뇌세포 1개짜리 단순한 1차 함수 식에서 벗어나, 뉴런들 사이에 <strong>\'숨겨진 층(Hidden Layer)\'</strong>을 여러 겹으로 깊게 쌓아 올립니다.<br>• <strong>의미:</strong> 층이 두꺼워질수록 컴퓨터가 단순 직선으로 나눌 수 없는 훨씬 더 복잡하고 고차원적인 비선형 패턴을 분석할 수 있는 진짜 <strong>딥러닝(Deep Learning)</strong>으로 진화합니다.'
+            },
+            {
+              title: '🖼️ 3. 이미지 데이터와 차원 (Tensor Shape) 다루기',
+              detail: '• <strong>기존과의 차이:</strong> 엑셀 표 데이터에서 벗어나 손글씨 숫자(MNIST)나 사물 사진(CIFAR-10) 같은 실제 이미지 데이터를 다룹니다.<br>• <strong>핵심 포인트:</strong> 컴퓨터에게 이미지는 픽셀 숫자의 묶음일 뿐입니다.<br>&nbsp;&nbsp;• <strong>흑백 이미지:</strong> (28, 28) ➔ 2차원 행렬<br>&nbsp;&nbsp;• <strong>컬러 이미지:</strong> (32, 32, 3) ➔ 3차원 RGB 텐서<br>&nbsp;&nbsp;• <strong>배치 데이터:</strong> (60000, 28, 28) ➔ 6만 장 묶음 3차원/4차원 텐서로 구조화됩니다.'
+            }
+          ],
+          summary: '원핫인코딩으로 범주형 타깃을 0과 1로 변환하고, 히든 레이어를 깊게 쌓아 비선형 패턴을 극복하며, 이미지는 다차원 텐서(Shape) 구조로 이해하여 심층 신경망에 주입합니다.'
+        }
+      ]
+    },
     {
       id: '1006',
       date: '10/06 (화)',
-      badge: 'LATEST',
+      badge: '10/06',
       title: '🚀 머신러닝 vs 딥러닝 완성 · AI 3대 트렌드(RAG/파인튜닝) · 피지컬AI & 지도학습 4단계',
       subtitle: '정형·비정형 데이터별 AI 모델(XGBoost vs Transformer), 과대·과소적합 극복, 기업의 AI 활용 3트렌드, 5대 AI 프로젝트 직군, 지도학습 4단계 & Pandas 실습 · 레모네이드 판매 예측(TensorFlow 회귀)',
       tags: ['1006실무', '레모네이드_판매예측', 'TensorFlow_Keras', 'fit_predict', '회귀모델_실습', '머신러닝', '딥러닝', 'MLOps_서빙', 'FastAPI_Docker', 'AI레스토랑_5대직군', '사내AI구축', 'LoRA_포스트잇튜닝', '지식그래프', 'CNN', '비정형데이터', '의사결정나무', '대출승인분류', '피지컬AI', 'RAG_파인튜닝', '지도학습4단계', '판다스기초', '펑션콜_벡터DB', '과대적합_Overfitting', '실습'],
@@ -3567,7 +3810,7 @@ print(response.choices[0].message.content)
 
   // 현재 필터 상태
   let currentFilter = {
-    date: '1006',
+    date: '1007',
     keyword: '',
     tag: 'all'
   };

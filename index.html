@@ -151,7 +151,8 @@
               <select id="dateSelect" class="daily-form__select" aria-label="학습 날짜 선택">
                 <option value="all">전체 날짜 한눈에 보기</option>
                 <option value="practice">🧪 [실습 모아보기] 전체 실습 코드 &amp; Lab만 모아보기</option>
-                <option value="1006" selected>10/06 (화) 🚀 머신러닝 vs 딥러닝 완성 · AI 3대 트렌드(RAG/파인튜닝) · 피지컬AI &amp; 지도학습 4단계</option>
+                <option value="1007" selected>10/07 (수) 📐 AI 수학·통계(내적·공분산·R²) · 활성화함수 5대장 &amp; 판다스 4대기술</option>
+                <option value="1006">10/06 (화) 🚀 머신러닝 vs 딥러닝 완성 · AI 3대 트렌드(RAG/파인튜닝) · 피지컬AI &amp; 지도학습 4단계</option>
                 <option value="1004">10/04 (일) 🧠 머신러닝 · 딥러닝 핵심 뼈대 &amp; PM 실무 파이프라인 (ML · DL · SQL+Python+JSON · SLM)</option>
                 <option value="1002">10/02 (금) 🐍 초보자를 위한 파이썬 기초 개념 &amp; 실전 프로젝트 가이드 (모듈 · 클래스 · 파일I/O)</option>
                 <option value="1001">10/01 (목) 📊 파이썬 판다스(Pandas) 기초 뼈대 &amp; 실무 데이터 분석 3대 패턴</option>
@@ -172,7 +173,7 @@
               <span class="daily-form__icon">🔍</span> 실시간 실습 &amp; 키워드 검색
             </label>
             <div class="daily-form__search-wrap">
-              <input type="text" id="dailySearch" class="daily-form__input" placeholder="실습 검색 (예: 12종실무함수, 피지컬AI, RAG, 판다스, 펑션콜...)">
+              <input type="text" id="dailySearch" class="daily-form__input" placeholder="실습 검색 (예: 내적, 활성화함수, 결정계수, 판다스, ReLU...)">
               <button type="button" id="dailySearchClear" class="daily-form__clear-btn" title="검색어 초기화">✕</button>
             </div>
           </div>
@@ -185,9 +186,10 @@
           <button type="button" class="daily-pill daily-pill--practice" data-date="practice">
             <span class="daily-pill__badge daily-pill__badge--practice">LAB</span> 🧪 실습 모아보기
           </button>
-          <button type="button" class="daily-pill is-active" data-date="1006">
-            <span class="daily-pill__badge">NEW</span> 10/06 (화) ML·DL·피지컬AI
+          <button type="button" class="daily-pill is-active" data-date="1007">
+            <span class="daily-pill__badge">NEW</span> 10/07 (수) 수학·통계·활성화함수
           </button>
+          <button type="button" class="daily-pill" data-date="1006">10/06 (화) ML·DL·피지컬AI</button>
           <button type="button" class="daily-pill" data-date="1004">10/04 (일) ML&amp;DL 뼈대</button>
           <button type="button" class="daily-pill" data-date="1002">10/02 (금) 파이썬 기초&amp;클래스</button>
           <button type="button" class="daily-pill" data-date="1001">10/01 (목) Pandas 기초</button>
@@ -206,6 +208,12 @@
         <div class="daily-form__tags" id="dailyTags">
           <span class="daily-form__tags-label">인기 태그:</span>
           <button type="button" class="daily-tag" data-tag="all">#전체태그</button>
+          <button type="button" class="daily-tag" data-tag="1007실무">📐 #1007실무</button>
+          <button type="button" class="daily-tag" data-tag="내적_공분산_상관계수">🤝 #내적_공분산_상관계수</button>
+          <button type="button" class="daily-tag" data-tag="활성화함수5대장">⚡ #활성화함수5대장</button>
+          <button type="button" class="daily-tag" data-tag="결정계수_R2">📊 #결정계수_R2</button>
+          <button type="button" class="daily-tag" data-tag="경사하강법">📉 #경사하강법</button>
+          <button type="button" class="daily-tag" data-tag="판다스4대기술">🐼 #판다스4대기술</button>
           <button type="button" class="daily-tag" data-tag="피지컬AI">🤖 #피지컬AI</button>
           <button type="button" class="daily-tag" data-tag="의사결정나무">🌲 #의사결정나무</button>
           <button type="button" class="daily-tag" data-tag="AI레스토랑_5대직군">🍳 #AI레스토랑_5대직군</button>
